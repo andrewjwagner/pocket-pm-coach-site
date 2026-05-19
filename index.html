@@ -872,7 +872,15 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
 (function() {
   const TOTAL = 6;
   let current = 0;
-  let touchStartX = 0;
+
+  // drag state
+  let dragX = 0;
+  let dragActive = false;
+  let dragStartX = 0;
+  let dragLastX = 0;
+  let dragVelocity = 0;
+  let dragLastTime = 0;
+  let dragging = false;
 
   const slides = Array.from(document.querySelectorAll('.phone-slide'));
   const dotsEl = document.getElementById('carouselDots');
@@ -889,7 +897,9 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
 
   function mod(n, m) { return ((n % m) + m) % m; }
 
-  function render() {
+  // Apply CSS classes + live drag offset to each slide
+  function render(liveOffset) {
+    const off = liveOffset || 0;
     const posMap = {
       [mod(current,     TOTAL)]: 'pos-active',
       [mod(current + 1, TOTAL)]: 'pos-next',
@@ -897,35 +907,94 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
       [mod(current + 2, TOTAL)]: 'pos-next2',
       [mod(current - 2, TOTAL)]: 'pos-prev2',
     };
+
     slides.forEach((s, i) => {
-      s.className = 'phone-slide' + (posMap[i] ? ' ' + posMap[i] : '');
+      const pos = posMap[i] || '';
+      s.className = 'phone-slide' + (pos ? ' ' + pos : '');
+
+      // During drag: nudge active and flanking slides with the finger
+      if (off !== 0) {
+        const norm = Math.max(-1, Math.min(1, off / 260)); // -1 … +1
+        let extra = '';
+        if (pos === 'pos-active') {
+          extra = `translateX(${off * 0.9}px)`;
+        } else if (pos === 'pos-next') {
+          // pull next card closer as we swipe left
+          extra = `translateX(calc(56% + ${off * 0.5}px)) scale(${0.83 + Math.max(0, -norm) * 0.17}) rotate(${4 + norm * 4}deg)`;
+        } else if (pos === 'pos-prev') {
+          extra = `translateX(calc(-56% + ${off * 0.5}px)) scale(${0.83 + Math.max(0, norm) * 0.17}) rotate(${-4 + norm * 4}deg)`;
+        }
+        if (extra) {
+          s.style.transform = extra;
+          s.style.transition = 'none';
+        } else {
+          s.style.transform = '';
+          s.style.transition = '';
+        }
+      } else {
+        s.style.transform = '';
+        s.style.transition = '';
+      }
     });
+
     document.querySelectorAll('.carousel-dot').forEach((d, i) => {
       d.classList.toggle('active', i === current);
     });
-    // clicking side cards advances the carousel
-    slides.forEach((s, i) => {
-      s.onclick = null;
-      if (posMap[i] === 'pos-next') s.onclick = () => goTo(current + 1);
-      if (posMap[i] === 'pos-prev') s.onclick = () => goTo(current - 1);
-    });
+
+    if (!off) {
+      slides.forEach((s, i) => {
+        s.onclick = null;
+        const pos = posMap[i];
+        if (pos === 'pos-next') s.onclick = () => goTo(current + 1);
+        if (pos === 'pos-prev') s.onclick = () => goTo(current - 1);
+      });
+    }
   }
 
-  function goTo(idx) { current = mod(idx, TOTAL); render(); }
+  function goTo(idx) {
+    current = mod(idx, TOTAL);
+    render();
+  }
+
   window.carouselNext = function() { goTo(current + 1); };
   window.carouselPrev = function() { goTo(current - 1); };
 
-  // Keyboard
+  // ── Keyboard ──
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') carouselNext();
     if (e.key === 'ArrowLeft')  carouselPrev();
   });
 
-  // Touch swipe
-  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  // ── Live drag (touch) ──
+  track.addEventListener('touchstart', e => {
+    dragStartX  = e.touches[0].clientX;
+    dragLastX   = dragStartX;
+    dragVelocity = 0;
+    dragLastTime = Date.now();
+    dragging    = true;
+  }, { passive: true });
+
+  track.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    const x   = e.touches[0].clientX;
+    const now  = Date.now();
+    const dt   = now - dragLastTime || 1;
+    dragVelocity = (x - dragLastX) / dt; // px/ms
+    dragLastX    = x;
+    dragLastTime = now;
+    dragX = x - dragStartX;
+    render(dragX);
+  }, { passive: true });
+
   track.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 40) { dx < 0 ? carouselNext() : carouselPrev(); }
+    if (!dragging) return;
+    dragging = false;
+    const totalDx = e.changedTouches[0].clientX - dragStartX;
+    const momentum = dragVelocity * 120; // project velocity forward
+    const effective = totalDx + momentum;
+    if (effective < -50)      goTo(current + 1);
+    else if (effective > 50)  goTo(current - 1);
+    else                      render(); // spring back
   }, { passive: true });
 
   render();
