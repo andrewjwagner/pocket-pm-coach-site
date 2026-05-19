@@ -115,23 +115,9 @@
   /* FORM */
   .disclaimer { font-size: 12px; color: rgba(240,240,245,.32); opacity: 0; animation: fadeUp .6s ease forwards .65s; margin-bottom: 36px; }
   .beehiiv-wrap {
-    width: 100%; max-width: 480px; margin-bottom: 14px;
+    margin: 0 auto 14px;
     opacity: 0; animation: fadeUp .6s ease forwards .55s;
-    border-radius: 4px; overflow: hidden;
-  }
-  /* Center the Beehiiv iframe container */
-  .beehiiv-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  .beehiiv-wrap iframe,
-  .beehiiv-wrap > div,
-  .beehiiv-wrap > * {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    display: block !important;
+    text-align: center;
   }
   }
   .beehiiv-wrap iframe { display: block; width: 100%; border: none; }
@@ -803,6 +789,24 @@
 </footer>
 
 <script>
+// ── BEEHIIV CENTERING — watch for dynamic injection ─────────
+(function() {
+  function centerBeehiiv() {
+    document.querySelectorAll('.beehiiv-wrap').forEach(function(wrap) {
+      Array.from(wrap.children).forEach(function(child) {
+        child.style.display     = 'block';
+        child.style.marginLeft  = 'auto';
+        child.style.marginRight = 'auto';
+      });
+    });
+  }
+  // Run once now and again after scripts load
+  centerBeehiiv();
+  window.addEventListener('load', centerBeehiiv);
+  // Watch for Beehiiv injecting its iframe/div asynchronously
+  new MutationObserver(centerBeehiiv)
+    .observe(document.body, { childList: true, subtree: true });
+})();
 // ── NAV CTA — scroll to form + focus input ──────────────────
 function scrollToForm(e) {
   e.preventDefault();
