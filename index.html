@@ -153,7 +153,7 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     gap: 16px;
-    padding: 0 40px;
+    padding: 0 calc(50% - 120px);
     box-sizing: content-box;
   }
   .carousel-track-wrap::-webkit-scrollbar { display: none; }
@@ -188,7 +188,7 @@
 
   @media (max-width: 600px) {
     .carousel-viewport { max-width: 100%; }
-    .carousel-track-wrap { padding: 0 32px; gap: 12px; }
+    .carousel-track-wrap { padding: 0 calc(50% - 110px); gap: 12px; }
     .phone-slide { flex: 0 0 220px; }
     .carousel-arrow { display: none; }
   }
@@ -895,11 +895,14 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
     updateDots(idx);
   }
 
-  // Sync dots to scroll position — find whichever slide centre is closest to viewport centre
+  // Sync dots — find slide whose centre is closest to viewport centre,
+  // with explicit check for reaching the scroll end
   let scrollTimer;
   track.addEventListener('scroll', () => {
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => {
+      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+      if (atEnd) { updateDots(TOTAL - 1); return; }
       const centre = track.scrollLeft + track.clientWidth / 2;
       let closest = 0, minDist = Infinity;
       slides.forEach((s, i) => {
