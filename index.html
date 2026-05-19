@@ -895,14 +895,18 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
     updateDots(idx);
   }
 
-  // Sync dots to scroll position
+  // Sync dots to scroll position — find whichever slide centre is closest to viewport centre
   let scrollTimer;
   track.addEventListener('scroll', () => {
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => {
-      const cardWidth = slides[0].offsetWidth + 16;
-      const idx = Math.min(TOTAL - 1, Math.max(0, Math.round(track.scrollLeft / cardWidth)));
-      updateDots(idx);
+      const centre = track.scrollLeft + track.clientWidth / 2;
+      let closest = 0, minDist = Infinity;
+      slides.forEach((s, i) => {
+        const dist = Math.abs((s.offsetLeft + s.offsetWidth / 2) - centre);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      updateDots(closest);
     }, 50);
   }, { passive: true });
 
