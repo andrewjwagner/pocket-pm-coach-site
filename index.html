@@ -817,10 +817,8 @@
 
 <script>
 // ─────────────────────────────────────────────
-// ─────────────────────────────────────────────
-// EMAIL CAPTURE — Beehiiv subscribe via hidden iframe
-// Pocket PM Coach Waitlist (pub_b8550302-c809-4cae-b985-37fc508d6c7a)
-// No CORS, no redirect, no API key needed.
+// EMAIL CAPTURE — Beehiiv API v2
+// Publication: pub_b8550302-c809-4cae-b985-37fc508d6c7a
 // ─────────────────────────────────────────────
 
 function handleSignup(inputId, formId, successId) {
@@ -839,16 +837,28 @@ function handleSignup(inputId, formId, successId) {
   btn.style.opacity = '0.7';
   btn.disabled = true;
 
-  // Submit via hidden iframe — browser handles the cross-origin POST
-  // natively, no CORS restriction, no new tab, no visible redirect.
-  const iframe = document.getElementById('beehiiv-hidden-frame');
-  const form   = document.getElementById('beehiiv-hidden-form');
-  document.getElementById('beehiiv-hidden-email').value = email;
-  form.submit();
-
-  // Show success immediately
-  document.getElementById(formId).style.display    = 'none';
-  document.getElementById(successId).style.display = 'block';
+  fetch('https://api.beehiiv.com/v2/publications/pub_b8550302-c809-4cae-b985-37fc508d6c7a/subscriptions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ouBJZMszCNdNJ9zoV019cwR7LN8xzjhce4W6WHs1OtEPfhu78JzvlU0iKCMfAJRL'
+    },
+    body: JSON.stringify({
+      email: email,
+      reactivate_existing: true,
+      send_welcome_email: true,
+      utm_source: 'landing_page',
+      utm_medium: 'organic'
+    })
+  })
+  .then(() => {
+    document.getElementById(formId).style.display    = 'none';
+    document.getElementById(successId).style.display = 'block';
+  })
+  .catch(() => {
+    document.getElementById(formId).style.display    = 'none';
+    document.getElementById(successId).style.display = 'block';
+  });
 }
 
 // ─────────────────────────────────────────────
@@ -939,19 +949,5 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
 })();
 
 </script>
-<!-- Hidden Beehiiv subscribe form — used by handleSignup() -->
-<iframe id="beehiiv-hidden-frame" name="beehiiv-hidden-frame" style="display:none;width:0;height:0;border:0" aria-hidden="true"></iframe>
-<form
-  id="beehiiv-hidden-form"
-  action="https://pocket-pm-coach.beehiiv.com/subscribe"
-  method="POST"
-  target="beehiiv-hidden-frame"
-  style="display:none"
-  aria-hidden="true"
->
-  <input type="email" name="email" id="beehiiv-hidden-email">
-  <input type="hidden" name="utm_source" value="landing_page">
-  <input type="hidden" name="utm_medium" value="organic">
-</form>
 </body>
 </html>
