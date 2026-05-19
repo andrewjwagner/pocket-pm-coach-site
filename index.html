@@ -124,11 +124,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
   .beehiiv-wrap iframe,
+  .beehiiv-wrap > div,
   .beehiiv-wrap > * {
-    max-width: 480px;
-    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
   }
   }
   .beehiiv-wrap iframe { display: block; width: 100%; border: none; }
@@ -496,7 +499,6 @@
 
 <nav>
   <div class="nav-logo">POCKET<br><span>PM COACH</span></div>
-  <a href="#join" class="btn-pixel" onclick="scrollToForm(event)">GET EARLY ACCESS</a>
 </nav>
 
 <!-- HERO -->
