@@ -170,24 +170,24 @@
   }
   .phone-slide img { width: 100%; display: block; }
   .phone-slide.pos-active {
-    transform: translateX(0) scale(1) rotate(0deg);
+    transform: translateX(0);
     opacity: 1; z-index: 10; pointer-events: auto;
   }
   .phone-slide.pos-next {
-    transform: translateX(56%) scale(0.83) rotate(4deg);
-    opacity: 0.75; z-index: 6; pointer-events: auto; cursor: pointer;
+    transform: translateX(88%);
+    opacity: 0.55; z-index: 6; pointer-events: auto; cursor: pointer;
   }
   .phone-slide.pos-prev {
-    transform: translateX(-56%) scale(0.83) rotate(-4deg);
-    opacity: 0.75; z-index: 6; pointer-events: auto; cursor: pointer;
+    transform: translateX(-88%);
+    opacity: 0.55; z-index: 6; pointer-events: auto; cursor: pointer;
   }
   .phone-slide.pos-next2 {
-    transform: translateX(82%) scale(0.67) rotate(7deg);
-    opacity: 0.35; z-index: 3; pointer-events: none;
+    transform: translateX(176%);
+    opacity: 0.2; z-index: 3; pointer-events: none;
   }
   .phone-slide.pos-prev2 {
-    transform: translateX(-82%) scale(0.67) rotate(-7deg);
-    opacity: 0.35; z-index: 3; pointer-events: none;
+    transform: translateX(-176%);
+    opacity: 0.2; z-index: 3; pointer-events: none;
   }
 
   /* Arrows */
@@ -213,10 +213,10 @@
     .carousel-viewport { max-width: 100%; padding: 0; }
     .carousel-track-wrap { height: 460px; }
     .phone-slide { width: 200px; margin-left: -100px; }
-    .phone-slide.pos-next { transform: translateX(60%) scale(0.8) rotate(4deg); }
-    .phone-slide.pos-prev { transform: translateX(-60%) scale(0.8) rotate(-4deg); }
-    .phone-slide.pos-next2 { transform: translateX(88%) scale(0.63) rotate(7deg); }
-    .phone-slide.pos-prev2 { transform: translateX(-88%) scale(0.63) rotate(-7deg); }
+    .phone-slide.pos-next { transform: translateX(88%); }
+    .phone-slide.pos-prev { transform: translateX(-88%); }
+    .phone-slide.pos-next2 { transform: translateX(176%); }
+    .phone-slide.pos-prev2 { transform: translateX(-176%); }
     .carousel-arrow { width: 34px; height: 34px; font-size: 20px; }
   }
 
@@ -941,10 +941,9 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
         if (pos === 'pos-active') {
           extra = `translateX(${off * 0.9}px)`;
         } else if (pos === 'pos-next') {
-          // pull next card closer as we swipe left
-          extra = `translateX(calc(56% + ${off * 0.5}px)) scale(${0.83 + Math.max(0, -norm) * 0.17}) rotate(${4 + norm * 4}deg)`;
+          extra = `translateX(calc(88% + ${off * 0.9}px))`;
         } else if (pos === 'pos-prev') {
-          extra = `translateX(calc(-56% + ${off * 0.5}px)) scale(${0.83 + Math.max(0, norm) * 0.17}) rotate(${-4 + norm * 4}deg)`;
+          extra = `translateX(calc(-88% + ${off * 0.9}px))`;
         }
         if (extra) {
           s.style.transform = extra;
