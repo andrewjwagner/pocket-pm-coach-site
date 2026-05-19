@@ -164,7 +164,7 @@
     box-shadow: 0 24px 56px rgba(0,0,0,.6), 0 0 32px rgba(245,166,35,.08);
     opacity: 0;
     transform: translateX(0) scale(0.6);
-    transition: transform .45s cubic-bezier(.25,.46,.45,.94), opacity .45s ease;
+    transition: transform .42s cubic-bezier(0.22, 1, 0.36, 1), opacity .38s ease;
     pointer-events: none;
     z-index: 1;
   }
@@ -525,8 +525,19 @@
     <span class="pain-pill">GENERIC AI CHAT</span><span class="pain-pill">ONE-SHOT FEEDBACK</span><span class="pain-pill">MADE-UP QUESTIONS</span>
   </div>
 
-  <div class="beehiiv-wrap">
+  <div class="beehiiv-wrap" id="beehiivWrap1">
     <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="cbe3e2a1-cba8-49d3-8717-8c14bab5a877"></script>
+  </div>
+  <div id="beehiivFallback1" style="display:none;max-width:480px;margin:0 auto 14px;">
+    <form id="fallbackForm1" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+      <input type="email" placeholder="Enter your email" required
+        style="flex:1;min-width:200px;padding:12px 16px;border:1.5px solid rgba(245,166,35,.4);background:rgba(255,255,255,.06);color:#f0f0f5;border-radius:4px;font-size:15px;outline:none;">
+      <button type="submit"
+        style="padding:12px 22px;background:#f5a623;color:#0a0a0f;font-weight:700;font-size:14px;letter-spacing:.08em;border:none;border-radius:4px;cursor:pointer;">
+        JOIN WAITLIST
+      </button>
+    </form>
+    <p id="fallbackMsg1" style="font-size:13px;color:rgba(245,166,35,.8);margin-top:10px;display:none;text-align:center;"></p>
   </div>
   <p class="disclaimer">No spam. Early access notification only.</p>
 
@@ -800,8 +811,19 @@
 <section class="cta-bottom" id="join">
   <span class="cta-tag">[ EARLY ACCESS, FREE TO JOIN ]</span>
   <h2>Stop guessing what went wrong.<br>Start drilling what actually matters.</h2>
-  <div class="beehiiv-wrap" style="margin:0 auto;opacity:1;animation:none;">
+  <div class="beehiiv-wrap" id="beehiivWrap2" style="margin:0 auto;opacity:1;animation:none;">
     <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="cbe3e2a1-cba8-49d3-8717-8c14bab5a877"></script>
+  </div>
+  <div id="beehiivFallback2" style="display:none;max-width:480px;margin:0 auto 14px;">
+    <form id="fallbackForm2" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+      <input type="email" placeholder="Enter your email" required
+        style="flex:1;min-width:200px;padding:12px 16px;border:1.5px solid rgba(245,166,35,.4);background:rgba(255,255,255,.06);color:#f0f0f5;border-radius:4px;font-size:15px;outline:none;">
+      <button type="submit"
+        style="padding:12px 22px;background:#f5a623;color:#0a0a0f;font-weight:700;font-size:14px;letter-spacing:.08em;border:none;border-radius:4px;cursor:pointer;">
+        JOIN WAITLIST
+      </button>
+    </form>
+    <p id="fallbackMsg2" style="font-size:13px;color:rgba(245,166,35,.8);margin-top:10px;display:none;text-align:center;"></p>
   </div>
 </section>
 
@@ -990,16 +1012,68 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
     if (!dragging) return;
     dragging = false;
     const totalDx = e.changedTouches[0].clientX - dragStartX;
-    const momentum = dragVelocity * 120; // project velocity forward
+    const momentum = dragVelocity * 120;
     const effective = totalDx + momentum;
-    if (effective < -50)      goTo(current + 1);
-    else if (effective > 50)  goTo(current - 1);
-    else                      render(); // spring back
+
+    // Determine next index before touching the DOM
+    if (effective < -50)     current = mod(current + 1, TOTAL);
+    else if (effective > 50) current = mod(current - 1, TOTAL);
+
+    // Re-enable transitions while inline drag transforms are still applied —
+    // this lets the browser know where we're animating FROM
+    slides.forEach(s => { s.style.transition = ''; });
+
+    // Force a reflow so the browser registers the current drag position
+    // as the animation start point before we clear the inline transforms
+    track.getBoundingClientRect();
+
+    // Now snap to class-defined positions — browser animates smoothly
+    render();
   }, { passive: true });
 
   render();
 })();
 
+</script>
+
+<script>
+// Show native form fallback if beehiiv script is blocked (e.g. DuckDuckGo)
+setTimeout(function() {
+  [['beehiivWrap1','beehiivFallback1'],['beehiivWrap2','beehiivFallback2']].forEach(function(pair) {
+    var wrap = document.getElementById(pair[0]);
+    var fallback = document.getElementById(pair[1]);
+    if (!wrap || !fallback) return;
+    var hasIframe = wrap.querySelector('iframe');
+    if (!hasIframe) { wrap.style.display = 'none'; fallback.style.display = 'block'; }
+  });
+}, 1500);
+
+// Handle fallback form submissions via Beehiiv public API
+['fallbackForm1','fallbackForm2'].forEach(function(id, i) {
+  var form = document.getElementById(id);
+  if (!form) return;
+  var msgEl = document.getElementById('fallbackMsg' + (i+1));
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = form.querySelector('input[type=email]').value;
+    fetch('https://app.beehiiv.com/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        publication_id: 'pub_b8550302-c809-4cae-b985-37fc508d6c7a',
+        referring_site: window.location.href
+      })
+    }).then(function() {
+      form.style.display = 'none';
+      msgEl.style.display = 'block';
+      msgEl.textContent = "You're on the list!";
+    }).catch(function() {
+      // fallback: open beehiiv subscribe page
+      window.open('https://app.beehiiv.com/subscribe?publication_id=pub_b8550302-c809-4cae-b985-37fc508d6c7a&email=' + encodeURIComponent(email), '_blank');
+    });
+  });
+});
 </script>
 </body>
 </html>
