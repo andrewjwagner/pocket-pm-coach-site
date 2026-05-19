@@ -113,22 +113,13 @@
   }
 
   /* FORM */
-  .email-form {
-    display: flex; max-width: 480px; width: 100%; margin-bottom: 14px;
-    opacity: 0; animation: fadeUp .6s ease forwards .55s;
-  }
-  .email-input {
-    flex: 1; padding: 15px 18px; font-family: var(--body); font-size: 15px;
-    background: var(--cream); border: 3px solid var(--cream); border-right: none;
-    color: var(--navy); outline: none;
-  }
-  .email-input::placeholder { color: rgba(10,10,15,.4); }
   .disclaimer { font-size: 12px; color: rgba(240,240,245,.32); opacity: 0; animation: fadeUp .6s ease forwards .65s; margin-bottom: 36px; }
-  .success-msg {
-    display: none; font-family: var(--body); font-size: 14px; font-weight: 600; color: var(--green);
-    text-align: center; padding: 18px 24px; border: 2px solid var(--green);
-    letter-spacing: .05em; line-height: 1.9; max-width: 480px; margin-bottom: 36px;
+  .beehiiv-wrap {
+    width: 100%; max-width: 480px; margin-bottom: 14px;
+    opacity: 0; animation: fadeUp .6s ease forwards .55s;
+    border-radius: 4px; overflow: hidden;
   }
+  .beehiiv-wrap iframe { display: block; width: 100%; border: none; }
 
   /* XP DEMO */
   .xp-demo {
@@ -483,8 +474,7 @@
   }
   @media (max-width: 640px) {
     nav { padding: 13px 18px; }
-    .email-form { flex-direction: column; }
-    .email-input { border-right: 3px solid var(--cream); border-bottom: none; }
+
     footer { flex-direction: column; text-align: center; }
     .lvl { padding: 8px 10px; font-size: 6px; }
   }
@@ -508,11 +498,13 @@
     <span class="pain-pill">GENERIC AI CHAT</span><span class="pain-pill">ONE-SHOT FEEDBACK</span><span class="pain-pill">MADE-UP QUESTIONS</span>
   </div>
 
-  <div class="email-form" id="hero-form">
-    <input class="email-input" type="email" placeholder="your@email.com" id="hero-email">
-    <button class="btn-pixel" onclick="handleSignup('hero-email','hero-form','hero-success')">JOIN WAITLIST</button>
+  <div class="beehiiv-wrap">
+    <iframe src="https://embeds.beehiiv.com/pub_b8550302-c809-4cae-b985-37fc508d6c7a"
+      data-test-id="beehiiv-embed"
+      height="52"
+      scrolling="no"
+      style="border-radius:4px;border:none;width:100%;"></iframe>
   </div>
-  <div class="success-msg" id="hero-success">✓ YOU'RE ON THE LIST!<br>WE'LL HIT YOU WITH EARLY ACCESS SOON.</div>
   <p class="disclaimer">No spam. Early access notification only.</p>
 
   <div class="xp-demo">
@@ -786,11 +778,13 @@
 <section class="cta-bottom">
   <span class="cta-tag">[ EARLY ACCESS — FREE TO JOIN ]</span>
   <h2>Stop guessing what went wrong.<br>Start drilling what actually matters.</h2>
-  <div class="email-form" id="bottom-form" style="margin:0 auto 14px;opacity:1;animation:none;">
-    <input class="email-input" type="email" placeholder="your@email.com" id="bottom-email">
-    <button class="btn-pixel" onclick="handleSignup('bottom-email','bottom-form','bottom-success')">START DRILLING</button>
+  <div class="beehiiv-wrap" style="margin:0 auto;opacity:1;animation:none;">
+    <iframe src="https://embeds.beehiiv.com/pub_b8550302-c809-4cae-b985-37fc508d6c7a"
+      data-test-id="beehiiv-embed"
+      height="52"
+      scrolling="no"
+      style="border-radius:4px;border:none;width:100%;"></iframe>
   </div>
-  <div class="success-msg" id="bottom-success">✓ YOU'RE ON THE LIST!<br>WE'LL HIT YOU WITH EARLY ACCESS SOON.</div>
 </section>
 
 <footer>
@@ -804,50 +798,17 @@
 
 <script>
 // ─────────────────────────────────────────────
-// EMAIL CAPTURE — Beehiiv API v2
-// Publication: pub_b8550302-c809-4cae-b985-37fc508d6c7a
-// ─────────────────────────────────────────────
-
-function handleSignup(inputId, formId, successId) {
-  const inp   = document.getElementById(inputId);
-  const email = inp.value.trim();
-
-  if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
-    inp.style.outline = '3px solid #E52222';
-    inp.focus();
-    setTimeout(() => inp.style.outline = '', 1600);
-    return;
+// Beehiiv embed auto-resize
+window.addEventListener('message', function(e) {
+  if (e.data && typeof e.data === 'string' && e.data.startsWith('beehiiv:')) {
+    var parts = e.data.split(':');
+    if (parts[1] === 'resize') {
+      document.querySelectorAll('[data-test-id="beehiiv-embed"]').forEach(function(el) {
+        el.height = parts[2];
+      });
+    }
   }
-
-  const btn = inp.nextElementSibling;
-  btn.textContent = 'SENDING...';
-  btn.style.opacity = '0.7';
-  btn.disabled = true;
-
-  fetch('https://api.beehiiv.com/v2/publications/pub_b8550302-c809-4cae-b985-37fc508d6c7a/subscriptions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ouBJZMszCNdNJ9zoV019cwR7LN8xzjhce4W6WHs1OtEPfhu78JzvlU0iKCMfAJRL'
-    },
-    body: JSON.stringify({
-      email: email,
-      reactivate_existing: true,
-      send_welcome_email: true,
-      utm_source: 'landing_page',
-      utm_medium: 'organic'
-    })
-  })
-  .then(() => {
-    document.getElementById(formId).style.display    = 'none';
-    document.getElementById(successId).style.display = 'block';
-  })
-  .catch(() => {
-    document.getElementById(formId).style.display    = 'none';
-    document.getElementById(successId).style.display = 'block';
-  });
-}
-
+});
 // ─────────────────────────────────────────────
 
 const els = document.querySelectorAll('.step, .sp-card, .q-card, .vs-col');
