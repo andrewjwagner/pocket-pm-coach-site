@@ -496,7 +496,7 @@
 
 <nav>
   <div class="nav-logo">POCKET<br><span>PM COACH</span></div>
-  <a href="#waitlist" class="btn-pixel">GET EARLY ACCESS</a>
+  <a href="#join" class="btn-pixel" onclick="scrollToForm(event)">GET EARLY ACCESS</a>
 </nav>
 
 <!-- HERO -->
@@ -783,7 +783,7 @@
 -->
 
 <!-- BOTTOM CTA -->
-<section class="cta-bottom">
+<section class="cta-bottom" id="join">
   <span class="cta-tag">[ EARLY ACCESS — FREE TO JOIN ]</span>
   <h2>Stop guessing what went wrong.<br>Start drilling what actually matters.</h2>
   <div class="beehiiv-wrap" style="margin:0 auto;opacity:1;animation:none;">
@@ -801,6 +801,24 @@
 </footer>
 
 <script>
+// ── NAV CTA — scroll to form + focus input ──────────────────
+function scrollToForm(e) {
+  e.preventDefault();
+  const target = document.getElementById('join');
+  if (!target) return;
+  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  // After scroll, try to focus the email input inside the Beehiiv iframe
+  setTimeout(function() {
+    const iframe = target.querySelector('iframe');
+    if (iframe) {
+      iframe.focus();
+      try {
+        // Works only if same-origin — harmless if it fails
+        iframe.contentDocument.querySelector('input[type="email"]').focus();
+      } catch(err) {}
+    }
+  }, 600);
+}
 // ─────────────────────────────────────────────
 
 const els = document.querySelectorAll('.step, .sp-card, .q-card, .vs-col');
