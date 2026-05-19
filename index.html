@@ -499,11 +499,7 @@
   </div>
 
   <div class="beehiiv-wrap">
-    <iframe src="https://embeds.beehiiv.com/pub_b8550302-c809-4cae-b985-37fc508d6c7a"
-      data-test-id="beehiiv-embed"
-      height="52"
-      scrolling="no"
-      style="border-radius:4px;border:none;width:100%;"></iframe>
+    <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="cbe3e2a1-cba8-49d3-8717-8c14bab5a877"></script>
   </div>
   <p class="disclaimer">No spam. Early access notification only.</p>
 
@@ -779,11 +775,7 @@
   <span class="cta-tag">[ EARLY ACCESS — FREE TO JOIN ]</span>
   <h2>Stop guessing what went wrong.<br>Start drilling what actually matters.</h2>
   <div class="beehiiv-wrap" style="margin:0 auto;opacity:1;animation:none;">
-    <iframe src="https://embeds.beehiiv.com/pub_b8550302-c809-4cae-b985-37fc508d6c7a"
-      data-test-id="beehiiv-embed"
-      height="52"
-      scrolling="no"
-      style="border-radius:4px;border:none;width:100%;"></iframe>
+    <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="cbe3e2a1-cba8-49d3-8717-8c14bab5a877"></script>
   </div>
 </section>
 
@@ -797,18 +789,6 @@
 </footer>
 
 <script>
-// ─────────────────────────────────────────────
-// Beehiiv embed auto-resize
-window.addEventListener('message', function(e) {
-  if (e.data && typeof e.data === 'string' && e.data.startsWith('beehiiv:')) {
-    var parts = e.data.split(':');
-    if (parts[1] === 'resize') {
-      document.querySelectorAll('[data-test-id="beehiiv-embed"]').forEach(function(el) {
-        el.height = parts[2];
-      });
-    }
-  }
-});
 // ─────────────────────────────────────────────
 
 const els = document.querySelectorAll('.step, .sp-card, .q-card, .vs-col');
