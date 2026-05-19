@@ -150,69 +150,56 @@
   @keyframes tick { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
   /* PHONES */
-  /* PHONE CAROUSEL */
-  .phones { position: relative; z-index: 1; padding: 60px 0 40px; overflow: hidden; }
-  .carousel-viewport { position: relative; max-width: 900px; margin: 0 auto; padding: 0 60px; }
+  /* PHONE CAROUSEL — single slide, clean fade */
+  .phones { position: relative; z-index: 1; padding: 60px 0 40px; }
+  .carousel-viewport { position: relative; max-width: 360px; margin: 0 auto; padding: 0 56px; }
   .carousel-track-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
-    height: 540px;
+    height: 520px;
     touch-action: pan-y;
     user-select: none;
   }
   .phone-slide {
     position: absolute;
+    inset: 0;
+    width: 240px;
+    margin: 0 auto;
     border-radius: 32px;
     border: 3px solid rgba(245,166,35,.3);
     overflow: hidden;
-    box-shadow: 0 32px 64px rgba(0,0,0,.6), 0 0 40px rgba(245,166,35,.06);
-    transition: transform .5s cubic-bezier(.25,.46,.45,.94),
-                opacity .5s ease,
-                filter .5s ease,
-                z-index 0s .25s;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 24px 56px rgba(0,0,0,.6), 0 0 32px rgba(245,166,35,.08);
+    opacity: 0;
+    transition: opacity .35s ease;
+    pointer-events: none;
+    left: 50%; transform: translateX(-50%);
   }
-  .phone-slide img { width: 100%; display: block; pointer-events: none; }
-
-  /* position classes set by JS */
-  .phone-slide.pos-active  { width: 230px; transform: translateX(0) rotate(0deg) scale(1);    opacity: 1;   z-index: 4; cursor: default; filter: none; }
-  .phone-slide.pos-prev1   { width: 180px; transform: translateX(-220px) rotate(-5deg) scale(1); opacity: .6;  z-index: 3; filter: brightness(.7); }
-  .phone-slide.pos-next1   { width: 180px; transform: translateX(220px) rotate(5deg) scale(1);  opacity: .6;  z-index: 3; filter: brightness(.7); }
-  .phone-slide.pos-prev2   { width: 140px; transform: translateX(-360px) rotate(-9deg) scale(.9); opacity: .3; z-index: 2; filter: brightness(.5); }
-  .phone-slide.pos-next2   { width: 140px; transform: translateX(360px) rotate(9deg) scale(.9);  opacity: .3; z-index: 2; filter: brightness(.5); }
-  .phone-slide.pos-hidden  { transform: translateX(0) scale(.7); opacity: 0; z-index: 1; pointer-events: none; }
-
-  .phone-slide.pos-active:hover { transform: translateY(-6px) scale(1.02); }
+  .phone-slide img { width: 100%; display: block; }
+  .phone-slide.pos-active { opacity: 1; pointer-events: auto; }
 
   /* Arrows */
   .carousel-arrow {
     position: absolute; top: 50%; transform: translateY(-50%);
     background: rgba(245,166,35,.12); border: 1.5px solid rgba(245,166,35,.3);
-    color: var(--amber); font-size: 28px; line-height: 1;
-    width: 44px; height: 44px; border-radius: 50%;
-    cursor: pointer; transition: background .2s, transform .2s;
+    color: var(--amber); font-size: 26px; line-height: 1;
+    width: 40px; height: 40px; border-radius: 50%;
+    cursor: pointer; transition: background .2s;
     display: flex; align-items: center; justify-content: center;
     z-index: 10;
   }
-  .carousel-arrow:hover { background: rgba(245,166,35,.28); transform: translateY(-50%) scale(1.08); }
+  .carousel-arrow:hover { background: rgba(245,166,35,.28); }
   .carousel-prev { left: 0; }
   .carousel-next { right: 0; }
 
   /* Dots */
-  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 28px; }
-  .carousel-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(245,166,35,.22); border: none; cursor: pointer; transition: background .3s, transform .3s; padding: 0; }
+  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+  .carousel-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(245,166,35,.22); border: none; cursor: pointer; transition: background .25s, transform .25s; padding: 0; }
   .carousel-dot.active { background: var(--amber); transform: scale(1.4); }
 
   @media (max-width: 600px) {
-    .carousel-viewport { padding: 0 16px; }
+    .carousel-viewport { padding: 0 44px; }
     .carousel-track-wrap { height: 460px; }
-    .phone-slide.pos-active  { width: 200px; }
-    .phone-slide.pos-prev1, .phone-slide.pos-next1 { display: none; }
-    .phone-slide.pos-prev2, .phone-slide.pos-next2 { display: none; }
-    .carousel-arrow { width: 36px; height: 36px; font-size: 22px; }
+    .phone-slide { width: 210px; }
+    .carousel-arrow { width: 34px; height: 34px; font-size: 20px; }
   }
 
   /* SECTION SHELL */
@@ -880,39 +867,28 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
 
 // ── PHONE CAROUSEL ──────────────────────────────────────────
 (function() {
-  const TOTAL   = 7;
-  let current   = 0;
-  let dragging  = false;
+  const TOTAL = 7;
+  let current = 0;
   let touchStartX = 0;
 
   const slides = Array.from(document.querySelectorAll('.phone-slide'));
   const dotsEl = document.getElementById('carouselDots');
   const track  = document.getElementById('carouselTrack');
 
-  // Build dots dynamically
+  // Build dots
   for (let i = 0; i < TOTAL; i++) {
     const d = document.createElement('button');
     d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', 'Slide ' + (i+1));
+    d.setAttribute('aria-label', 'Slide ' + (i + 1));
     d.addEventListener('click', () => goTo(i));
     dotsEl.appendChild(d);
   }
 
   function mod(n, m) { return ((n % m) + m) % m; }
 
-  function posClass(idx) {
-    const diff = mod(idx - current, TOTAL);
-    if (diff === 0)          return 'pos-active';
-    if (diff === 1)          return 'pos-next1';
-    if (diff === TOTAL - 1)  return 'pos-prev1';
-    if (diff === 2)          return 'pos-next2';
-    if (diff === TOTAL - 2)  return 'pos-prev2';
-    return 'pos-hidden';
-  }
-
   function render() {
     slides.forEach((s, i) => {
-      s.className = 'phone-slide ' + posClass(i);
+      s.className = 'phone-slide' + (i === current ? ' pos-active' : '');
     });
     document.querySelectorAll('.carousel-dot').forEach((d, i) => {
       d.classList.toggle('active', i === current);
@@ -922,15 +898,6 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
   function goTo(idx) { current = mod(idx, TOTAL); render(); }
   window.carouselNext = function() { goTo(current + 1); };
   window.carouselPrev = function() { goTo(current - 1); };
-
-  // Click side slides to advance
-  slides.forEach((s) => {
-    s.addEventListener('click', function() {
-      const cls = this.className;
-      if (cls.includes('pos-next1') || cls.includes('pos-next2')) carouselNext();
-      else if (cls.includes('pos-prev1') || cls.includes('pos-prev2')) carouselPrev();
-    });
-  });
 
   // Keyboard
   document.addEventListener('keydown', e => {
