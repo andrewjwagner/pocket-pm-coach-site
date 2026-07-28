@@ -51,5 +51,5 @@ These pages must be live at a real URL before Apple will accept the submission:
 
 ## Session Handoff
 <!-- Update this section at the end of each session -->
-Last completed: _
-Next up: _
+Last completed: Added first-party Privacy, Terms, and Support pages plus Beehiiv disclosures on `app-store-readiness`
+Next up: Merge the readiness branch into `main`, verify all three pages live at `pocketpmcoach.app`, and use those URLs in App Store Connect
