@@ -152,9 +152,9 @@
   .ticker-item::before { content: '★ '; }
   @keyframes tick { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-  /* PHONES — App Store marketing screenshots carousel */
-  .phones { position: relative; z-index: 1; padding: 48px 0 40px; }
-  .carousel-viewport { position: relative; max-width: 780px; margin: 0 auto; overflow: hidden; }
+  /* PHONES — simulator captures in phone chrome */
+  .phones { position: relative; z-index: 1; padding: 60px 0 40px; }
+  .carousel-viewport { position: relative; max-width: 560px; margin: 0 auto; overflow: hidden; }
   .carousel-track-wrap {
     display: flex;
     overflow-x: auto;
@@ -162,24 +162,23 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     gap: 20px;
-    padding: 12px calc(50% - 140px);
+    padding: 20px calc(50% - 130px);
     box-sizing: border-box;
   }
   .carousel-track-wrap::-webkit-scrollbar { display: none; }
   .phone-slide {
-    flex: 0 0 280px;
+    flex: 0 0 260px;
     scroll-snap-align: center;
-    border-radius: 18px;
-    border: 1px solid rgba(245,166,35,.22);
+    border-radius: 36px;
+    border: 2px solid rgba(245,166,35,.3);
     overflow: hidden;
     background: #0A0A0F;
-    box-shadow: 0 24px 56px rgba(0,0,0,.65), 0 0 32px rgba(245,166,35,.08);
+    box-shadow: 0 24px 56px rgba(0,0,0,.6), 0 0 32px rgba(245,166,35,.08);
   }
   .phone-slide img {
     width: 100%;
     height: auto;
     display: block;
-    vertical-align: top;
   }
 
   /* Arrows */
@@ -193,18 +192,18 @@
     z-index: 20;
   }
   .carousel-arrow:hover { background: rgba(245,166,35,.28); }
-  .carousel-prev { left: 8px; }
-  .carousel-next { right: 8px; }
+  .carousel-prev { left: 4px; }
+  .carousel-next { right: 4px; }
 
   /* Dots */
-  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
   .carousel-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(245,166,35,.22); border: none; cursor: pointer; transition: background .25s, transform .25s; padding: 0; }
   .carousel-dot.active { background: var(--amber); transform: scale(1.4); }
 
   @media (max-width: 600px) {
     .carousel-viewport { max-width: 100%; }
-    .carousel-track-wrap { padding: 12px calc(50% - 120px); gap: 14px; }
-    .phone-slide { flex: 0 0 240px; }
+    .carousel-track-wrap { padding: 20px calc(50% - 115px); gap: 14px; }
+    .phone-slide { flex: 0 0 230px; }
     .carousel-arrow { display: none; }
   }
 
@@ -634,11 +633,11 @@
 <div class="phones reveal" id="phones">
   <div class="carousel-viewport">
     <div class="carousel-track-wrap" id="carouselTrack">
-      <div class="phone-slide" data-idx="0"><img src="screenshots/01-daily-drill.png" alt="One PM question every day, daily drills" width="720" height="1564" loading="eager"></div>
-      <div class="phone-slide" data-idx="1"><img src="screenshots/02-leaderboard.png" alt="Climb the leaderboard" width="720" height="1564" loading="lazy"></div>
-      <div class="phone-slide" data-idx="2"><img src="screenshots/03-feedback.png" alt="Coaching on every answer" width="720" height="1564" loading="lazy"></div>
-      <div class="phone-slide" data-idx="3"><img src="screenshots/04-practice.png" alt="Run a full mock on demand" width="720" height="1564" loading="lazy"></div>
-      <div class="phone-slide" data-idx="4"><img src="screenshots/05-playbook.png" alt="Learn the frameworks cold" width="720" height="1564" loading="lazy"></div>
+      <div class="phone-slide" data-idx="0"><img src="screenshots/01-daily-drill.png" alt="Home — daily drill completed" width="720" height="1565" loading="eager"></div>
+      <div class="phone-slide" data-idx="1"><img src="screenshots/02-leaderboard.png" alt="Daily leaderboard" width="720" height="1564" loading="lazy"></div>
+      <div class="phone-slide" data-idx="2"><img src="screenshots/03-feedback.png" alt="AI coaching feedback on an answer" width="720" height="1564" loading="lazy"></div>
+      <div class="phone-slide" data-idx="3"><img src="screenshots/04-practice.png" alt="Full mock interview practice" width="720" height="1564" loading="lazy"></div>
+      <div class="phone-slide" data-idx="4"><img src="screenshots/05-playbook.png" alt="Playbook learning cards" width="720" height="1564" loading="lazy"></div>
     </div>
     <button class="carousel-arrow carousel-prev" onclick="carouselPrev()" aria-label="Previous">&#8249;</button>
     <button class="carousel-arrow carousel-next" onclick="carouselNext()" aria-label="Next">&#8250;</button>
