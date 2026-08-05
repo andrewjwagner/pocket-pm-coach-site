@@ -527,33 +527,46 @@
   .questions-band > * { position: relative; z-index: 1; }
 
 
-  /* ═══ VERBATIM QUOTE ═══ */
+  /* ═══ VERBATIM QUOTE STRIP ═══ */
   .verbatim-band {
     position: relative; z-index: 1;
-    padding: 90px 24px;
-    text-align: center;
+    padding: 80px 24px;
     background: radial-gradient(ellipse at 50% 50%, rgba(245,166,35,.05) 0%, transparent 68%);
     border-top: 1px solid rgba(245,166,35,.1);
     border-bottom: 1px solid rgba(245,166,35,.1);
   }
+  .verbatim-grid {
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .verbatim-item {
+    text-align: center;
+    padding: 12px 36px;
+  }
+  .verbatim-item + .verbatim-item {
+    border-left: 1px solid rgba(245,166,35,.18);
+  }
   .verbatim-mark {
     font-family: Georgia, serif;
-    font-size: 88px;
+    font-size: 64px;
     line-height: 0.6;
     color: var(--amber);
     opacity: 0.35;
     display: block;
-    margin-bottom: 28px;
+    margin-bottom: 22px;
     user-select: none;
   }
   .verbatim-quote {
     font-family: var(--body);
-    font-size: clamp(20px, 2.6vw, 32px);
+    font-size: clamp(17px, 1.9vw, 24px);
     font-weight: 600;
     line-height: 1.5;
     color: var(--cream);
-    max-width: 720px;
-    margin: 0 auto 28px;
+    max-width: 420px;
+    margin: 0 auto 22px;
     font-style: italic;
   }
   .verbatim-source {
@@ -562,6 +575,11 @@
     font-weight: 700;
     letter-spacing: .14em;
     color: var(--amber);
+  }
+  @media (max-width: 720px) {
+    .verbatim-grid { grid-template-columns: 1fr; gap: 48px; }
+    .verbatim-item { padding: 0 8px; }
+    .verbatim-item + .verbatim-item { border-left: none; padding-top: 48px; border-top: 1px solid rgba(245,166,35,.18); }
   }
 
 </style>
@@ -866,11 +884,20 @@
 -->
 
 
-<!-- VERBATIM QUOTE -->
+<!-- VERBATIM QUOTE STRIP -->
 <div class="verbatim-band reveal">
-  <span class="verbatim-mark">"</span>
-  <p class="verbatim-quote">The feedback was so specific to my responses and questions, it felt like a live coach.</p>
-  <span class="verbatim-source">— Seb</span>
+  <div class="verbatim-grid">
+    <div class="verbatim-item">
+      <span class="verbatim-mark">"</span>
+      <p class="verbatim-quote">The feedback was so specific to my responses and questions, it felt like a live coach.</p>
+      <span class="verbatim-source">— Seb</span>
+    </div>
+    <div class="verbatim-item">
+      <span class="verbatim-mark">"</span>
+      <p class="verbatim-quote">Gets you thinking beyond the day-to-day of your current role.</p>
+      <span class="verbatim-source">— Dave P.</span>
+    </div>
+  </div>
 </div>
 
 <!-- BOTTOM CTA -->
