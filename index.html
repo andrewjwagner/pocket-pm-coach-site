@@ -152,7 +152,7 @@
   .ticker-item::before { content: '★ '; }
   @keyframes tick { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-  /* PHONES — simulator captures in phone chrome */
+  /* PHONES: simulator captures in phone chrome */
   .phones { position: relative; z-index: 1; padding: 60px 0 40px; }
   .carousel-viewport { position: relative; max-width: 560px; margin: 0 auto; overflow: hidden; }
   .carousel-track-wrap {
@@ -509,7 +509,7 @@
   }
   .stagger-grid > *.visible { opacity: 1; transform: translateY(0); }
 
-  /* ═══ AMBIENT GLOW — mid-page sections ═══ */
+  /* ═══ AMBIENT GLOW: mid-page sections ═══ */
   .vs-band::before {
     content: '';
     position: absolute; inset: 0;
@@ -596,7 +596,7 @@
   <div class="eyebrow">AI-POWERED PM INTERVIEW TRAINING</div>
   <h1>You made it to the last round.<br><span class="red">But no offer. No feedback.</span></h1>
   <p class="hero-sub" style="font-size:clamp(18px,2.2vw,24px);font-weight:800;color:var(--cream);margin-bottom:16px;">Pocket PM Coach ends that.</p>
-  <p class="hero-sub">Step-by-step mock drills with AI feedback at every stage. You always know exactly what to fix — not just whether you passed.</p>
+  <p class="hero-sub">Step-by-step mock drills with AI feedback at every stage. You always know exactly what to fix, not just whether you passed.</p>
   <div class="pain-line">
     <span class="pain-pill">GENERIC AI CHAT</span><span class="pain-pill">ONE-SHOT FEEDBACK</span><span class="pain-pill">MADE-UP QUESTIONS</span>
   </div>
@@ -651,7 +651,7 @@
 <div class="phones reveal" id="phones">
   <div class="carousel-viewport">
     <div class="carousel-track-wrap" id="carouselTrack">
-      <div class="phone-slide" data-idx="0"><img src="screenshots/01-daily-drill.png" alt="Home — daily drill completed" width="720" height="1565" loading="eager"></div>
+      <div class="phone-slide" data-idx="0"><img src="screenshots/01-daily-drill.png" alt="Home: daily drill completed" width="720" height="1565" loading="eager"></div>
       <div class="phone-slide" data-idx="1"><img src="screenshots/02-leaderboard.png" alt="Daily leaderboard" width="720" height="1564" loading="lazy"></div>
       <div class="phone-slide" data-idx="2"><img src="screenshots/03-feedback.png" alt="AI coaching feedback on an answer" width="720" height="1564" loading="lazy"></div>
       <div class="phone-slide" data-idx="3"><img src="screenshots/04-practice.png" alt="Full mock interview practice" width="720" height="1564" loading="lazy"></div>
@@ -734,7 +734,7 @@
             </div>
             <div class="mock-gap">
               <div class="mock-gap-label">GAP TO CLOSE</div>
-              At L5, name 3–4 segments, score each on size and relevance to the metric, and state which segment likely drove the drop with a hypothesis.
+              At L5, name 3-4 segments, score each on size and relevance to the metric, and state which segment likely drove the drop with a hypothesis.
             </div>
           </div>
         </div>
@@ -890,12 +890,12 @@
     <div class="verbatim-item">
       <span class="verbatim-mark">"</span>
       <p class="verbatim-quote">The feedback was so specific to my responses and questions, it felt like a live coach.</p>
-      <span class="verbatim-source">— Seb</span>
+      <span class="verbatim-source">- Seb</span>
     </div>
     <div class="verbatim-item">
       <span class="verbatim-mark">"</span>
       <p class="verbatim-quote">Gets you thinking beyond the day-to-day of your current role.</p>
-      <span class="verbatim-source">— Dave P.</span>
+      <span class="verbatim-source">- Dave P.</span>
     </div>
   </div>
 </div>
@@ -1017,7 +1017,7 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
     updateDots(idx);
   }
 
-  // Sync dots — find slide whose centre is closest to viewport centre,
+  // Sync dots: find slide whose centre is closest to viewport centre,
   // with explicit check for reaching the scroll end
   let scrollTimer;
   track.addEventListener('scroll', () => {
