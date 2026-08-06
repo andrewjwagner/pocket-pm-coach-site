@@ -212,8 +212,8 @@
     .carousel-arrow { display: none; }
   }
 
-  /* ═══ POCKET PM LEADERBOARD ═══ */
-  .lb-band {
+  /* ═══ DAILY DRILL + LEADERBOARD ═══ */
+  .dd-band {
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -221,6 +221,39 @@
     scroll-margin-top: 72px;
     border-top: 1px solid rgba(245,166,35,.12);
     border-bottom: 1px solid rgba(245,166,35,.12);
+  }
+  .dd-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .dd-label {
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: .2em;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .dd-title {
+    font-family: var(--body);
+    font-size: clamp(28px, 3.6vw, 44px);
+    font-weight: 800;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .dd-copy {
+    font-family: var(--body);
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(240,240,245,.65);
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto 40px;
   }
   .lb-stars {
     position: absolute;
@@ -253,20 +286,17 @@
   @media (prefers-reduced-motion: reduce) {
     .lb-star { animation: none !important; opacity: .45; }
   }
-  .lb-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 760px;
-    margin: 0 auto;
-    text-align: center;
+  .lb-block {
+    scroll-margin-top: 88px;
+    margin-top: 8px;
   }
   .lb-title {
     font-family: var(--body);
-    font-size: clamp(28px, 3.6vw, 44px);
+    font-size: clamp(22px, 2.8vw, 32px);
     font-weight: 800;
     color: var(--cream);
-    line-height: 1.15;
-    margin-bottom: 14px;
+    line-height: 1.2;
+    margin-bottom: 12px;
   }
   .lb-sub {
     display: inline-flex;
@@ -278,7 +308,7 @@
     font-weight: 500;
     color: rgba(245,166,35,.9);
     letter-spacing: .02em;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
     line-height: 1.5;
   }
   .lb-live-dot {
@@ -390,6 +420,7 @@
     .lb-xp { font-size: 8px; }
     .lb-streak { font-size: 12px; }
     .lb-sub { font-size: 13px; }
+    .dd-copy { font-size: 15px; margin-bottom: 32px; }
   }
 
   /* SECTION SHELL */
@@ -848,29 +879,35 @@
   <div class="carousel-dots" id="carouselDots"></div>
 </div>
 
-<!-- ═══ POCKET PM LEADERBOARD ═══ -->
-<section class="lb-band reveal" id="leaderboard" aria-labelledby="lb-title">
+<!-- ═══ DAILY DRILL + LEADERBOARD ═══ -->
+<section class="dd-band reveal" id="daily-drill" aria-labelledby="dd-title">
   <div class="lb-stars" id="lbStars" aria-hidden="true"></div>
-  <div class="lb-inner">
-    <h2 class="lb-title" id="lb-title">Pocket PM Leaderboard</h2>
-    <p class="lb-sub">
-      <span class="lb-live-dot" aria-hidden="true"></span>
-      Live all-time leaderboard showing all-time XP and streaks
-    </p>
-    <div class="lb-table-wrap" id="lbTable">
-      <div class="lb-row head" role="row">
-        <span>Rank</span>
-        <span>Player</span>
-        <span>XP</span>
-        <span>Streak</span>
-        <span>Level</span>
+  <div class="dd-inner">
+    <span class="dd-label">DAILY DRILL</span>
+    <h2 class="dd-title" id="dd-title">One question. Every day.<br>Real ranks.</h2>
+    <p class="dd-copy">A fresh interview prompt drops daily. Submit once, earn XP, protect your streak — and climb the public board.</p>
+
+    <div class="lb-block" id="leaderboard" aria-labelledby="lb-title">
+      <h3 class="lb-title" id="lb-title">Pocket PM Leaderboard</h3>
+      <p class="lb-sub">
+        <span class="lb-live-dot" aria-hidden="true"></span>
+        Live all-time leaderboard showing all-time XP and streaks
+      </p>
+      <div class="lb-table-wrap" id="lbTable">
+        <div class="lb-row head" role="row">
+          <span>Rank</span>
+          <span>Player</span>
+          <span>XP</span>
+          <span>Streak</span>
+          <span>Level</span>
+        </div>
+        <div id="lbBody">
+          <div class="lb-empty">Loading the board…</div>
+        </div>
       </div>
-      <div id="lbBody">
-        <div class="lb-empty">Loading the board…</div>
+      <div class="lb-cta">
+        <a class="btn-pixel" href="#join">Get the app</a>
       </div>
-    </div>
-    <div class="lb-cta">
-      <a class="btn-pixel" href="#join">Get the app</a>
     </div>
   </div>
 </section>
