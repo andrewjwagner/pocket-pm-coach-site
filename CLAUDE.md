@@ -51,5 +51,5 @@ These pages must be live at a real URL before Apple will accept the submission:
 
 ## Session Handoff
 <!-- Update this section at the end of each session -->
-Last completed: Legal pages merged to `main` and live at pocketpmcoach.app; privacy/terms/support URLs submitted with the App Store review (v1.2.2 build 10)
-Next up: Prep the landing page for launch day — swap waitlist messaging for an App Store download link once the app is approved
+Last completed: Added live Pocket PM Leaderboard section (`#leaderboard`) with drifting-star background, privacy copy for website all-time ranks; API wired to `product-power-up.web.app/publicAllTimeLeaderboard` (function already deployed)
+Next up: Push landing changes to `main` so GitHub Pages goes live; swap waitlist CTA for App Store link once approved

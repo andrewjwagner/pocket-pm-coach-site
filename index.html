@@ -212,6 +212,186 @@
     .carousel-arrow { display: none; }
   }
 
+  /* ═══ POCKET PM LEADERBOARD ═══ */
+  .lb-band {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    padding: 88px 24px 96px;
+    scroll-margin-top: 72px;
+    border-top: 1px solid rgba(245,166,35,.12);
+    border-bottom: 1px solid rgba(245,166,35,.12);
+  }
+  .lb-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .lb-star {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(240,240,245,.55);
+    box-shadow: 0 0 4px rgba(255,224,51,.25);
+    animation-name: lb-drift;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  .lb-star.amber { background: rgba(245,166,35,.7); box-shadow: 0 0 6px rgba(245,166,35,.35); }
+  .lb-star.asteroid {
+    border-radius: 2px;
+    background: rgba(240,240,245,.35);
+    box-shadow: none;
+    opacity: .55;
+  }
+  @keyframes lb-drift {
+    0%   { transform: translate3d(0, 0, 0); opacity: .15; }
+    10%  { opacity: .7; }
+    90%  { opacity: .55; }
+    100% { transform: translate3d(var(--dx), var(--dy), 0); opacity: .1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lb-star { animation: none !important; opacity: .45; }
+  }
+  .lb-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .lb-title {
+    font-family: var(--body);
+    font-size: clamp(28px, 3.6vw, 44px);
+    font-weight: 800;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .lb-sub {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--body);
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(245,166,35,.9);
+    letter-spacing: .02em;
+    margin-bottom: 36px;
+    line-height: 1.5;
+  }
+  .lb-live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px rgba(34,197,94,.7);
+    flex-shrink: 0;
+    animation: lb-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes lb-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .55; transform: scale(.85); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lb-live-dot { animation: none; }
+  }
+  .lb-table-wrap {
+    border: 2px solid rgba(245,166,35,.35);
+    background: rgba(23,23,31,.92);
+    text-align: left;
+    overflow: hidden;
+  }
+  .lb-row {
+    display: grid;
+    grid-template-columns: 64px 1.4fr 1fr 88px 72px;
+    gap: 8px;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(245,166,35,.14);
+  }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-row.head {
+    padding: 12px 18px;
+    background: rgba(10,10,15,.55);
+  }
+  .lb-row.head span {
+    font-family: var(--body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    color: rgba(245,166,35,.85);
+    text-transform: uppercase;
+  }
+  .lb-row.top {
+    box-shadow: inset 4px 0 0 var(--amber);
+    background: rgba(245,166,35,.06);
+  }
+  .lb-rank {
+    font-family: var(--body);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--amber);
+  }
+  .lb-player {
+    font-family: var(--body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cream);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .lb-xp {
+    font-family: var(--pixel);
+    font-size: 10px;
+    color: var(--amber);
+    line-height: 1.4;
+  }
+  .lb-streak {
+    font-family: var(--body);
+    font-size: 14px;
+    color: rgba(240,240,245,.75);
+  }
+  .lb-level {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-family: var(--body);
+    font-size: 12px;
+    font-weight: 700;
+    color: #0A0A0F;
+  }
+  .lb-level.l7, .lb-level.l6 { background: var(--green); }
+  .lb-level.l5 { background: var(--amber); }
+  .lb-level.l4 { background: var(--blue); color: #fff; }
+  .lb-level.l3 { background: rgba(240,240,245,.25); color: var(--cream); }
+  .lb-empty, .lb-error {
+    padding: 36px 24px;
+    font-family: var(--body);
+    font-size: 15px;
+    color: rgba(240,240,245,.6);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .lb-cta {
+    margin-top: 32px;
+  }
+  @media (max-width: 640px) {
+    .lb-row {
+      grid-template-columns: 40px 1.2fr .9fr 64px 52px;
+      padding: 12px 12px;
+      gap: 4px;
+    }
+    .lb-row.head span { letter-spacing: .08em; font-size: 9px; }
+    .lb-player { font-size: 13px; }
+    .lb-xp { font-size: 8px; }
+    .lb-streak { font-size: 12px; }
+    .lb-sub { font-size: 13px; }
+  }
+
   /* SECTION SHELL */
   .sec { position: relative; z-index: 1; padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
   .sec-label { font-family: var(--body); font-size: 11px; font-weight: 700; color: var(--amber); letter-spacing: .2em; display: block; margin-bottom: 16px; }
@@ -668,6 +848,33 @@
   <div class="carousel-dots" id="carouselDots"></div>
 </div>
 
+<!-- ═══ POCKET PM LEADERBOARD ═══ -->
+<section class="lb-band reveal" id="leaderboard" aria-labelledby="lb-title">
+  <div class="lb-stars" id="lbStars" aria-hidden="true"></div>
+  <div class="lb-inner">
+    <h2 class="lb-title" id="lb-title">Pocket PM Leaderboard</h2>
+    <p class="lb-sub">
+      <span class="lb-live-dot" aria-hidden="true"></span>
+      Live all-time leaderboard showing all-time XP and streaks
+    </p>
+    <div class="lb-table-wrap" id="lbTable">
+      <div class="lb-row head" role="row">
+        <span>Rank</span>
+        <span>Player</span>
+        <span>XP</span>
+        <span>Streak</span>
+        <span>Level</span>
+      </div>
+      <div id="lbBody">
+        <div class="lb-empty">Loading the board…</div>
+      </div>
+    </div>
+    <div class="lb-cta">
+      <a class="btn-pixel" href="#join">Get the app</a>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ VS BLOCK ═══ -->
 <div class="vs-band reveal">
   <div class="vs-inner">
@@ -1048,6 +1255,96 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
     if (e.key === 'ArrowRight') carouselNext();
     if (e.key === 'ArrowLeft')  carouselPrev();
   });
+})();
+
+// ── ALL-TIME LEADERBOARD ────────────────────────────────────
+(function() {
+  var API = 'https://product-power-up.web.app/publicAllTimeLeaderboard';
+  var bodyEl = document.getElementById('lbBody');
+  var starsEl = document.getElementById('lbStars');
+  if (!bodyEl) return;
+
+  function levelClass(level) {
+    return 'lb-level ' + String(level || 'L3').toLowerCase();
+  }
+
+  function renderEntries(entries) {
+    if (!entries || !entries.length) {
+      bodyEl.innerHTML = '<div class="lb-empty">Be the first to climb the all-time ranks.<br>Complete drills in the app to earn XP.</div>';
+      return;
+    }
+    var html = entries.slice(0, 10).map(function(e, i) {
+      var top = i === 0 ? ' top' : '';
+      var streak = (e.streak > 0) ? ('🔥 ' + e.streak) : '—';
+      return (
+        '<div class="lb-row' + top + '" role="row">' +
+          '<span class="lb-rank">' + e.rank + '</span>' +
+          '<span class="lb-player">' + escapeHtml(e.displayName) + '</span>' +
+          '<span class="lb-xp">' + e.xp + ' XP</span>' +
+          '<span class="lb-streak">' + streak + '</span>' +
+          '<span><span class="' + levelClass(e.level) + '">' + escapeHtml(e.level) + '</span></span>' +
+        '</div>'
+      );
+    }).join('');
+    bodyEl.innerHTML = html;
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function renderError() {
+    bodyEl.innerHTML = '<div class="lb-error">Leaderboard is warming up. Check back soon — or get the app and start earning XP.</div>';
+  }
+
+  function loadBoard() {
+    fetch(API, { method: 'GET' })
+      .then(function(res) {
+        if (!res.ok) throw new Error('bad status');
+        return res.json();
+      })
+      .then(function(data) { renderEntries(data.entries || []); })
+      .catch(function() { renderError(); });
+  }
+
+  loadBoard();
+  setInterval(loadBoard, 60000);
+
+  // Asteroid / drifting-star field
+  if (starsEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var count = 28;
+    for (var i = 0; i < count; i++) {
+      var star = document.createElement('span');
+      var size = (i % 7 === 0) ? (3 + Math.random() * 4) : (1 + Math.random() * 2.2);
+      var isAsteroid = i % 9 === 0;
+      star.className = 'lb-star' + (isAsteroid ? ' asteroid' : (i % 4 === 0 ? ' amber' : ''));
+      star.style.width = size + 'px';
+      star.style.height = (isAsteroid ? size * 0.55 : size) + 'px';
+      star.style.left = (Math.random() * 100) + '%';
+      star.style.top = (Math.random() * 100) + '%';
+      var dx = (-40 + Math.random() * 80) + 'vw';
+      var dy = (20 + Math.random() * 60) + 'vh';
+      star.style.setProperty('--dx', dx);
+      star.style.setProperty('--dy', dy);
+      star.style.animationDuration = (18 + Math.random() * 28) + 's';
+      star.style.animationDelay = (-Math.random() * 20) + 's';
+      starsEl.appendChild(star);
+    }
+  } else if (starsEl) {
+    for (var j = 0; j < 16; j++) {
+      var s = document.createElement('span');
+      s.className = 'lb-star' + (j % 3 === 0 ? ' amber' : '');
+      s.style.width = (1 + Math.random() * 2) + 'px';
+      s.style.height = s.style.width;
+      s.style.left = (Math.random() * 100) + '%';
+      s.style.top = (Math.random() * 100) + '%';
+      starsEl.appendChild(s);
+    }
+  }
 })();
 
 </script>
