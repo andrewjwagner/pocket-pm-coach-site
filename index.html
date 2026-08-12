@@ -115,16 +115,77 @@
     opacity: 1;
   }
 
-  /* FORM */
-  .disclaimer { font-size: 12px; color: rgba(240,240,245,.32); opacity: 0; animation: fadeUp .6s ease forwards .65s; margin-bottom: 36px; }
-  .beehiiv-wrap {
-    margin: 0 auto 14px;
+  /* APP STORE + NEWSLETTER */
+  .app-store-badge {
+    display: inline-block;
+    margin: 0 auto 22px;
     opacity: 0; animation: fadeUp .6s ease forwards .55s;
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
+    line-height: 0;
+    transition: opacity .2s ease;
   }
-  .beehiiv-wrap iframe { display: block; width: 100%; border: none; }
+  .app-store-badge:hover { opacity: .88; }
+  .app-store-badge img {
+    width: 156px;
+    height: auto;
+    display: block;
+  }
+  .newsletter-block {
+    max-width: 420px;
+    margin: 0 auto 14px;
+    opacity: 0; animation: fadeUp .6s ease forwards .62s;
+  }
+  .newsletter-label {
+    font-family: var(--body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    color: rgba(240,240,245,.55);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .newsletter-form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .newsletter-form input[type="email"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 16px;
+    border: 1.5px solid rgba(245,166,35,.4);
+    background: rgba(255,255,255,.06);
+    color: var(--cream);
+    border-radius: 4px;
+    font-size: 15px;
+    outline: none;
+    font-family: var(--body);
+  }
+  .newsletter-form input[type="email"]::placeholder { color: rgba(240,240,245,.35); }
+  .newsletter-form input[type="email"]:focus { border-color: var(--amber); }
+  .newsletter-form button {
+    padding: 12px 22px;
+    background: var(--amber);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .08em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--body);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .newsletter-form button:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #b87800; }
+  .newsletter-form button:disabled { opacity: .55; cursor: wait; transform: none; box-shadow: none; }
+  .newsletter-msg {
+    font-size: 13px;
+    color: rgba(245,166,35,.9);
+    margin-top: 10px;
+    text-align: center;
+    min-height: 1.2em;
+  }
+  .newsletter-msg.error { color: #e85d5d; }
   .consent-disclosure {
     max-width: 460px; margin: 8px auto 14px;
     font-size: 11px; line-height: 1.6; color: rgba(240,240,245,.42);
@@ -817,22 +878,22 @@
     <span class="pain-pill">GENERIC AI CHAT</span><span class="pain-pill">ONE-SHOT FEEDBACK</span><span class="pain-pill">MADE-UP QUESTIONS</span>
   </div>
 
-  <div class="beehiiv-wrap" id="beehiivWrap1">
-    <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="cbe3e2a1-cba8-49d3-8717-8c14bab5a877"></script>
-  </div>
-  <div id="beehiivFallback1" style="display:none;max-width:480px;margin:0 auto 14px;">
-    <form id="fallbackForm1" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-      <input type="email" placeholder="Enter your email" required
-        style="flex:1;min-width:200px;padding:12px 16px;border:1.5px solid rgba(245,166,35,.4);background:rgba(255,255,255,.06);color:#f0f0f5;border-radius:4px;font-size:15px;outline:none;">
-      <button type="submit"
-        style="padding:12px 22px;background:#f5a623;color:#0a0a0f;font-weight:700;font-size:14px;letter-spacing:.08em;border:none;border-radius:4px;cursor:pointer;">
-        JOIN WAITLIST
-      </button>
+  <a class="app-store-badge"
+     href="https://apps.apple.com/us/app/pocket-pm-coach/id6767074466"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Download Pocket PM Coach on the App Store">
+    <img src="app-store-badge.png" alt="Download on the App Store" width="156" height="52">
+  </a>
+
+  <div class="newsletter-block">
+    <p class="newsletter-label">GET PRODUCT UPDATES</p>
+    <form class="newsletter-form" data-newsletter-form>
+      <input type="email" name="email" placeholder="Enter your email" required autocomplete="email">
+      <button type="submit">SUBSCRIBE</button>
     </form>
-    <p id="fallbackMsg1" style="font-size:13px;color:rgba(245,166,35,.8);margin-top:10px;display:none;text-align:center;"></p>
+    <p class="newsletter-msg" data-newsletter-msg hidden></p>
   </div>
-  <p class="consent-disclosure">By joining, you agree to receive waitlist emails from Pocket PM Coach via Beehiiv. See our <a href="privacy.html">Privacy Policy</a>.</p>
-  <p class="disclaimer">No spam. Early access notification only.</p>
+  <p class="consent-disclosure">By subscribing, you agree to receive product emails from Pocket PM Coach via Beehiiv. See our <a href="privacy.html">Privacy Policy</a>.</p>
 
   <div class="xp-demo">
     <div class="xp-top"><span>XP</span><span>535 / NEXT L4→L5</span></div>
@@ -906,7 +967,7 @@
         </div>
       </div>
       <div class="lb-cta">
-        <a class="btn-pixel" href="#join">Get the app</a>
+        <a class="btn-pixel" href="https://apps.apple.com/us/app/pocket-pm-coach/id6767074466" target="_blank" rel="noopener noreferrer">Get the app</a>
       </div>
     </div>
   </div>
@@ -1151,23 +1212,24 @@
 
 <!-- BOTTOM CTA -->
 <section class="cta-bottom reveal" id="join">
-  <span class="cta-tag">[ EARLY ACCESS, FREE TO JOIN ]</span>
+  <span class="cta-tag">[ AVAILABLE ON THE APP STORE ]</span>
   <h2>Stop guessing what went wrong.<br>Start drilling what actually matters.</h2>
-  <div class="beehiiv-wrap" id="beehiivWrap2" style="margin:0 auto;opacity:1;animation:none;">
-    <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="cbe3e2a1-cba8-49d3-8717-8c14bab5a877"></script>
-  </div>
-  <div id="beehiivFallback2" style="display:none;max-width:480px;margin:0 auto 14px;">
-    <form id="fallbackForm2" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-      <input type="email" placeholder="Enter your email" required
-        style="flex:1;min-width:200px;padding:12px 16px;border:1.5px solid rgba(245,166,35,.4);background:rgba(255,255,255,.06);color:#f0f0f5;border-radius:4px;font-size:15px;outline:none;">
-      <button type="submit"
-        style="padding:12px 22px;background:#f5a623;color:#0a0a0f;font-weight:700;font-size:14px;letter-spacing:.08em;border:none;border-radius:4px;cursor:pointer;">
-        JOIN WAITLIST
-      </button>
+  <a class="app-store-badge"
+     href="https://apps.apple.com/us/app/pocket-pm-coach/id6767074466"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Download Pocket PM Coach on the App Store"
+     style="opacity:1;animation:none;">
+    <img src="app-store-badge.png" alt="Download on the App Store" width="156" height="52">
+  </a>
+  <div class="newsletter-block" style="opacity:1;animation:none;">
+    <p class="newsletter-label">GET PRODUCT UPDATES</p>
+    <form class="newsletter-form" data-newsletter-form>
+      <input type="email" name="email" placeholder="Enter your email" required autocomplete="email">
+      <button type="submit">SUBSCRIBE</button>
     </form>
-    <p id="fallbackMsg2" style="font-size:13px;color:rgba(245,166,35,.8);margin-top:10px;display:none;text-align:center;"></p>
+    <p class="newsletter-msg" data-newsletter-msg hidden></p>
   </div>
-  <p class="consent-disclosure">By joining, you agree to receive waitlist emails from Pocket PM Coach via Beehiiv. See our <a href="privacy.html">Privacy Policy</a>.</p>
+  <p class="consent-disclosure">By subscribing, you agree to receive product emails from Pocket PM Coach via Beehiiv. See our <a href="privacy.html">Privacy Policy</a>.</p>
 </section>
 
 <footer>
@@ -1181,42 +1243,63 @@
 </footer>
 
 <script>
-// ── BEEHIIV CENTERING watch for dynamic injection ─────────
+// ── NEWSLETTER (Beehiiv via Firebase proxy) ───────────────
 (function() {
-  function centerBeehiiv() {
-    document.querySelectorAll('.beehiiv-wrap').forEach(function(wrap) {
-      Array.from(wrap.children).forEach(function(child) {
-        child.style.display     = 'block';
-        child.style.marginLeft  = 'auto';
-        child.style.marginRight = 'auto';
-      });
+  var API = 'https://product-power-up.web.app/subscribeNewsletter';
+
+  document.querySelectorAll('[data-newsletter-form]').forEach(function(form) {
+    var msgEl = form.parentElement.querySelector('[data-newsletter-msg]');
+    var btn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var input = form.querySelector('input[type="email"]');
+      var email = (input && input.value || '').trim();
+      if (!email) return;
+
+      if (btn) { btn.disabled = true; btn.textContent = 'SENDING…'; }
+      if (msgEl) {
+        msgEl.hidden = true;
+        msgEl.classList.remove('error');
+        msgEl.textContent = '';
+      }
+
+      fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      })
+        .then(function(res) {
+          return res.json().then(function(data) {
+            return { ok: res.ok, data: data };
+          }).catch(function() {
+            return { ok: res.ok, data: {} };
+          });
+        })
+        .then(function(result) {
+          if (result.ok) {
+            form.style.display = 'none';
+            if (msgEl) {
+              msgEl.hidden = false;
+              msgEl.textContent = result.data && result.data.alreadySubscribed
+                ? "You're already subscribed — thanks!"
+                : "You're in. Watch your inbox.";
+            }
+          } else {
+            throw new Error('subscribe failed');
+          }
+        })
+        .catch(function() {
+          if (msgEl) {
+            msgEl.hidden = false;
+            msgEl.classList.add('error');
+            msgEl.textContent = 'Something went wrong. Try again in a moment.';
+          }
+          if (btn) { btn.disabled = false; btn.textContent = 'SUBSCRIBE'; }
+        });
     });
-  }
-  // Run once now and again after scripts load
-  centerBeehiiv();
-  window.addEventListener('load', centerBeehiiv);
-  // Watch for Beehiiv injecting its iframe/div asynchronously
-  new MutationObserver(centerBeehiiv)
-    .observe(document.body, { childList: true, subtree: true });
+  });
 })();
-// ── NAV CTA scroll to form + focus input ──────────────────
-function scrollToForm(e) {
-  e.preventDefault();
-  const target = document.getElementById('join');
-  if (!target) return;
-  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  // After scroll, try to focus the email input inside the Beehiiv iframe
-  setTimeout(function() {
-    const iframe = target.querySelector('iframe');
-    if (iframe) {
-      iframe.focus();
-      try {
-        // Works only if same-origin harmless if it fails
-        iframe.contentDocument.querySelector('input[type="email"]').focus();
-      } catch(err) {}
-    }
-  }, 600);
-}
 // ─────────────────────────────────────────────
 
 const els = document.querySelectorAll('.step');  // sp-card, q-card, vs-col handled by stagger system
@@ -1384,46 +1467,6 @@ els.forEach(el => { el.style.opacity = '0'; io.observe(el); });
   }
 })();
 
-</script>
-
-<script>
-// Show native form fallback if beehiiv script is blocked (e.g. DuckDuckGo)
-setTimeout(function() {
-  [['beehiivWrap1','beehiivFallback1'],['beehiivWrap2','beehiivFallback2']].forEach(function(pair) {
-    var wrap = document.getElementById(pair[0]);
-    var fallback = document.getElementById(pair[1]);
-    if (!wrap || !fallback) return;
-    var hasIframe = wrap.querySelector('iframe');
-    if (!hasIframe) { wrap.style.display = 'none'; fallback.style.display = 'block'; }
-  });
-}, 1500);
-
-// Handle fallback form submissions via Beehiiv public API
-['fallbackForm1','fallbackForm2'].forEach(function(id, i) {
-  var form = document.getElementById(id);
-  if (!form) return;
-  var msgEl = document.getElementById('fallbackMsg' + (i+1));
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var email = form.querySelector('input[type=email]').value;
-    fetch('https://app.beehiiv.com/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email,
-        publication_id: 'pub_b8550302-c809-4cae-b985-37fc508d6c7a',
-        referring_site: window.location.href
-      })
-    }).then(function() {
-      form.style.display = 'none';
-      msgEl.style.display = 'block';
-      msgEl.textContent = "You're on the list!";
-    }).catch(function() {
-      // fallback: open beehiiv subscribe page
-      window.open('https://app.beehiiv.com/subscribe?publication_id=pub_b8550302-c809-4cae-b985-37fc508d6c7a&email=' + encodeURIComponent(email), '_blank');
-    });
-  });
-});
 </script>
 
 <script>

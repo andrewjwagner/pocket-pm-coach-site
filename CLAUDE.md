@@ -1,13 +1,13 @@
 # Product Power-Up — Landing Page CLAUDE.md
 
 ## What This Is
-A pre-launch landing page for Product Power-Up, a gamified iOS PM interview coaching app. Purpose: waitlist capture + App Store submission legal requirements (Privacy Policy, Terms of Service, Support contact).
+Marketing landing page for Pocket PM Coach (Product Power-Up), a gamified iOS PM interview coaching app. Purpose: App Store download CTAs, newsletter capture, plus App Store legal pages (Privacy Policy, Terms of Service, Support contact).
 
 ## Stack
 - **Hosting**: GitHub Pages
 - **Code**: Plain HTML/CSS — single `index.html` file, no frameworks
-- **Email capture**: Beehiiv embedded form (waitlist signup)
-- **Domain**: Squarespace-managed domain pointing at GitHub Pages
+- **Email capture**: Newsletter form → Firebase `subscribeNewsletter` → Beehiiv API (key in Firebase secrets)
+- **Domain**: Squarespace-managed domain pointing at GitHub Pages (`pocketpmcoach.app`)
 
 ## Repo
 - GitHub username: andrewjwagner (andrewjwagner.dev email)
@@ -17,7 +17,8 @@ A pre-launch landing page for Product Power-Up, a gamified iOS PM interview coac
 ## File Structure
 ```
 /
-├── index.html         ← main landing page with Beehiiv embed
+├── index.html         ← main landing page (App Store badge + newsletter)
+├── app-store-badge.png ← official Apple Download on the App Store badge
 ├── privacy.html       ← Privacy Policy (required for App Store)
 ├── terms.html         ← Terms of Service (recommended for App Store)
 └── support.html       ← Support/contact page (required for App Store)
@@ -25,31 +26,32 @@ A pre-launch landing page for Product Power-Up, a gamified iOS PM interview coac
 
 ## Beehiiv Integration
 - Beehiiv account: andrewjwagner.dev email
-- Embed type: inline form embed (paste script tag from Beehiiv dashboard)
-- Emails collected go directly into Beehiiv subscriber list
+- Newsletter publication ID: `pub_3ef727c3-7d46-48a1-a7b2-945e6c9146ac`
+- Site POSTs `{ email }` to `https://product-power-up.web.app/subscribeNewsletter`
+- API key stored as Firebase secret `BEEHIIV_API_KEY` (never in this repo)
 
-## App Store Legal Requirements
-These pages must be live at a real URL before Apple will accept the submission:
+## App Store
+- Listing: https://apps.apple.com/us/app/pocket-pm-coach/id6767074466
 - Privacy Policy URL → submitted in App Store Connect
 - Support URL → submitted in App Store Connect
 
 ## Brand
-- App name: Product Power-Up
+- App name: Pocket PM Coach / Product Power-Up
 - Design system: Mario-inspired, gamified
 - Social: @shipwithandrew on X, Threads, Instagram
 - Target user: Working PMs (L3–L7) prepping for interviews
 
 ## What's Done
-- [ ] GitHub account created
-- [ ] Repo created and Pages enabled
-- [ ] index.html designed and live
-- [ ] Beehiiv account created + form embedded
-- [ ] privacy.html live
-- [ ] terms.html live
-- [ ] support.html live
-- [ ] Domain pointed at GitHub Pages
+- [x] GitHub account created
+- [x] Repo created and Pages enabled
+- [x] index.html designed and live
+- [x] App Store badge CTAs + newsletter via Firebase proxy
+- [x] privacy.html live
+- [x] terms.html live
+- [x] support.html live
+- [x] Domain pointed at GitHub Pages
 
 ## Session Handoff
 <!-- Update this section at the end of each session -->
-Last completed: Added live Pocket PM Leaderboard section (`#leaderboard`) with drifting-star background, privacy copy for website all-time ranks; API wired to `product-power-up.web.app/publicAllTimeLeaderboard` (function already deployed)
-Next up: Push landing changes to `main` so GitHub Pages goes live; swap waitlist CTA for App Store link once approved
+Last completed: Swapped waitlist for App Store badge CTAs + Beehiiv newsletter (Firebase `subscribeNewsletter` + `BEEHIIV_API_KEY` secret); privacy copy updated for newsletter
+Next up: Push landing site to `main` (GitHub Pages); deploy functions/hosting rewrite if not already; rotate Beehiiv API key (was shared in chat) and re-set secret
