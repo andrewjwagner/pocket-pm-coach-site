@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Live all-time ranks of real Pocket PM Coach players. Public gamertags, XP, streaks, and levels.">
+<meta name="description" content="Top 100 real Pocket PM Coach accounts ranked by lifetime XP. Public gamertags, ranks, XP, streaks, and levels.">
 <title>Leaderboard | Pocket PM Coach</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon-192.png">
@@ -236,9 +236,9 @@
 <main>
   <span class="eyebrow">PUBLIC RANKS</span>
   <h1>Pocket PM Leaderboard</h1>
-  <p class="intro">These are real Product Managers using Daily Drills to stay sharp. Sign up to see how others answer questions and climb the leaderboard yourself.</p>
+  <p class="intro">The top 100 real Pocket PM Coach accounts, ranked by lifetime XP. These are app accounts, not verified Product Managers. The website shows gamertag, rank, XP, streak, and level only.</p>
   <div class="meta-row">
-    <span class="live"><span class="live-dot" aria-hidden="true"></span> Live all-time ranks</span>
+    <span class="live"><span class="live-dot" aria-hidden="true"></span> Top 100 all-time ranks</span>
     <span id="updatedAt" class="note">Loading the board…</span>
   </div>
 
@@ -255,7 +255,7 @@
       <img src="app-store-badge.svg" alt="Download on the App Store" width="156" height="52">
     </a>
   </div>
-  <p class="note">Hide yourself anytime in Settings. We show gamertag, XP, streak, and level. Never your email or answers.</p>
+  <p class="note">Daily in-app and public website leaderboards are on by default. Turn off <strong>Show on public website board</strong> anytime in app <strong>Settings → Leaderboard</strong>; that setting is independent from the daily in-app board. Changes appear when the board next loads or refreshes, and removal may take a short time to clear caches. The website never shows your email, written answers, or AI feedback. <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a></p>
 </main>
 <footer>
   <span>© 2026 Pocket PM Coach</span>
@@ -298,7 +298,7 @@
 
   function formatUpdated(iso) {
     var d = new Date(iso);
-    if (isNaN(d.getTime())) return 'Live ranks refresh every minute.';
+    if (isNaN(d.getTime())) return 'Live ranks update when the board loads.';
     return 'Updated ' + d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
   }
 

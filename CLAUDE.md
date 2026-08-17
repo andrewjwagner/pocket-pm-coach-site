@@ -55,5 +55,5 @@ Marketing landing page for Pocket PM Coach (Product Power-Up), a gamified iOS PM
 
 ## Session Handoff
 <!-- Update this section at the end of each session -->
-Last completed: Dedicated `leaderboard.html` (real players, top 100) + home teaser CTA; footer/nav links; all-time API still needs deploy for the 100 cap
-Next up: Push landing site to `main` (GitHub Pages); deploy `publicAllTimeLeaderboard`; rotate Beehiiv API key (was shared in chat) and re-set secret
+Last completed: Pushed legal and leaderboard copy for default-on daily/public boards, independent opt-outs, private-by-default answers/AI feedback, and 18+ eligibility
+Next up: Complete App Store age-rating/privacy checklist against these live URLs; rotate Beehiiv API key
