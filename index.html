@@ -219,7 +219,7 @@
   .ticker-item::before { content: '★ '; }
   @keyframes tick { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-  /* PHONES: simulator captures in phone chrome — three visible at once */
+  /* PHONES: simulator captures in phone chrome, three visible at once */
   .phones { position: relative; z-index: 1; padding: 60px 24px 40px; }
   .carousel-viewport { position: relative; max-width: 820px; margin: 0 auto; overflow: hidden; }
   .carousel-track-wrap {
@@ -866,7 +866,7 @@
   <div class="dd-inner">
     <span class="dd-label">DAILY DRILL</span>
     <h2 class="dd-title" id="dd-title">One question. Every day.<br>Real ranks.</h2>
-    <p class="dd-copy">A fresh interview prompt drops daily. Submit once, earn XP, protect your streak — and climb the public leaderboard.</p>
+    <p class="dd-copy">A fresh interview prompt drops daily. Submit once, earn XP, protect your streak, and climb the public leaderboard.</p>
 
     <div class="lb-teaser" id="leaderboard" aria-labelledby="lb-title">
       <p class="lb-sub">
@@ -1192,7 +1192,7 @@
             if (msgEl) {
               msgEl.hidden = false;
               msgEl.textContent = result.data && result.data.alreadySubscribed
-                ? "You're already subscribed — thanks!"
+                ? "You're already subscribed. Thanks!"
                 : "You're in. Watch your inbox.";
             }
           } else {

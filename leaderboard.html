@@ -255,7 +255,7 @@
       <img src="app-store-badge.svg" alt="Download on the App Store" width="156" height="52">
     </a>
   </div>
-  <p class="note">Hide yourself anytime in Settings. We show gamertag, XP, streak, and level — never your email or answers.</p>
+  <p class="note">Hide yourself anytime in Settings. We show gamertag, XP, streak, and level. Never your email or answers.</p>
 </main>
 <footer>
   <span>© 2026 Pocket PM Coach</span>
@@ -293,7 +293,7 @@
   }
 
   function streakLabel(streak) {
-    return (streak > 0) ? ('🔥 ' + streak) : '—';
+    return (streak > 0) ? ('🔥 ' + streak) : '-';
   }
 
   function formatUpdated(iso) {
@@ -374,7 +374,7 @@
 
   function renderError() {
     updatedEl.textContent = 'Couldn’t refresh just now.';
-    showStatus('Leaderboard is warming up. Check back soon — or get the app and start earning XP.');
+    showStatus('Leaderboard is warming up. Check back soon, or get the app and start earning XP.');
   }
 
   function loadBoard() {
