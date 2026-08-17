@@ -5,7 +5,7 @@ Marketing landing page for Pocket PM Coach (Product Power-Up), a gamified iOS PM
 
 ## Stack
 - **Hosting**: GitHub Pages
-- **Code**: Plain HTML/CSS — single `index.html` file, no frameworks
+- **Code**: Plain HTML/CSS — no frameworks
 - **Email capture**: Newsletter form → Firebase `subscribeNewsletter` → Beehiiv API (key in Firebase secrets)
 - **Domain**: Squarespace-managed domain pointing at GitHub Pages (`pocketpmcoach.app`)
 
@@ -17,7 +17,8 @@ Marketing landing page for Pocket PM Coach (Product Power-Up), a gamified iOS PM
 ## File Structure
 ```
 /
-├── index.html         ← main landing page (App Store badge + newsletter)
+├── index.html         ← main landing page (App Store badge + newsletter + leaderboard teaser)
+├── leaderboard.html   ← public all-time board (up to 100 real players)
 ├── app-store-badge.png ← official Apple Download on the App Store badge
 ├── privacy.html       ← Privacy Policy (required for App Store)
 ├── terms.html         ← Terms of Service (recommended for App Store)
@@ -50,8 +51,9 @@ Marketing landing page for Pocket PM Coach (Product Power-Up), a gamified iOS PM
 - [x] terms.html live
 - [x] support.html live
 - [x] Domain pointed at GitHub Pages
+- [x] Dedicated public leaderboard page (real-player copy, top 100)
 
 ## Session Handoff
 <!-- Update this section at the end of each session -->
-Last completed: Swapped waitlist for App Store badge CTAs + Beehiiv newsletter (Firebase `subscribeNewsletter` + `BEEHIIV_API_KEY` secret); privacy copy updated for newsletter
-Next up: Push landing site to `main` (GitHub Pages); deploy functions/hosting rewrite if not already; rotate Beehiiv API key (was shared in chat) and re-set secret
+Last completed: Dedicated `leaderboard.html` (real players, top 100) + home teaser CTA; footer/nav links; all-time API still needs deploy for the 100 cap
+Next up: Push landing site to `main` (GitHub Pages); deploy `publicAllTimeLeaderboard`; rotate Beehiiv API key (was shared in chat) and re-set secret

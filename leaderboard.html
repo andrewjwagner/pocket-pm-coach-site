@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Live all-time ranks of real Pocket PM Coach players. Public gamertags, XP, streaks, and levels.">
+<title>Leaderboard | Pocket PM Coach</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A0A0F;
+    --navy-light: #17171F;
+    --amber: #F5A623;
+    --green: #22C55E;
+    --blue: #3B6BC8;
+    --yellow: #FFE033;
+    --cream: #F0F0F5;
+    --bronze: #C47A3A;
+    --pixel: 'Press Start 2P', monospace;
+    --body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--navy); color: var(--cream); font-family: var(--body); line-height: 1.6; }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 8% 12%, rgba(255,224,51,.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 23% 38%, rgba(255,255,255,.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 41% 9%, rgba(255,224,51,.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 72% 7%, rgba(255,224,51,.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 87% 19%, rgba(255,255,255,.3) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  nav {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px;
+    border-bottom: 1px solid rgba(245,166,35,.15);
+    background: rgba(10,10,15,.94);
+  }
+  .logo { color: var(--amber); font-size: 15px; font-weight: 700; line-height: 1.35; letter-spacing: .08em; text-decoration: none; }
+  .logo span { color: var(--cream); }
+  .back { color: var(--cream); font-size: 13px; font-weight: 700; text-decoration: none; }
+  .back:hover { color: var(--amber); }
+
+  .lb-stars { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .lb-star {
+    position: absolute; border-radius: 50%;
+    background: rgba(240,240,245,.55);
+    box-shadow: 0 0 4px rgba(255,224,51,.25);
+    animation-name: lb-drift; animation-timing-function: linear; animation-iteration-count: infinite;
+  }
+  .lb-star.amber { background: rgba(245,166,35,.7); box-shadow: 0 0 6px rgba(245,166,35,.35); }
+  .lb-star.asteroid { border-radius: 2px; background: rgba(240,240,245,.35); box-shadow: none; opacity: .55; }
+  @keyframes lb-drift {
+    0% { transform: translate3d(0,0,0); opacity: .15; }
+    10% { opacity: .7; }
+    90% { opacity: .55; }
+    100% { transform: translate3d(var(--dx), var(--dy), 0); opacity: .1; }
+  }
+
+  main { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 64px 24px 96px; }
+  .eyebrow { color: var(--amber); font-size: 11px; font-weight: 700; letter-spacing: .18em; }
+  .eyebrow::before { content: '> '; }
+  h1 { margin: 14px 0 12px; font-size: clamp(32px, 6vw, 56px); line-height: 1.15; }
+  .intro {
+    max-width: 640px; margin: 0 0 18px;
+    color: rgba(240,240,245,.72); font-size: 17px;
+  }
+  .meta-row {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px;
+    margin-bottom: 40px;
+    font-size: 14px; color: rgba(240,240,245,.55);
+  }
+  .live {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: rgba(245,166,35,.95); font-weight: 600;
+  }
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 8px rgba(34,197,94,.7);
+    animation: lb-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes lb-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .55; transform: scale(.85); }
+  }
+  .note { color: rgba(240,240,245,.48); }
+
+  .btn-pixel {
+    font-size: 13px; font-weight: 700; background: var(--amber); color: #000;
+    padding: 11px 20px; text-decoration: none;
+    display: inline-block; box-shadow: 4px 4px 0 #b87800; letter-spacing: .05em;
+    transition: transform .1s, box-shadow .1s;
+  }
+  .btn-pixel:hover { transform: translate(-1px,-1px); box-shadow: 5px 5px 0 #b87800; color: #000; }
+  .app-store-badge { display: inline-block; line-height: 0; }
+  .app-store-badge img { width: 156px; height: 52px; display: block; }
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin: 36px 0 8px; }
+
+  .status {
+    padding: 48px 24px;
+    border: 2px solid rgba(245,166,35,.28);
+    background: rgba(23,23,31,.88);
+    text-align: center;
+    color: rgba(240,240,245,.62);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  [hidden] { display: none !important; }
+
+  .podium {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .podium-card {
+    position: relative;
+    flex: 1 1 220px;
+    max-width: 280px;
+    padding: 22px 16px 20px;
+    background: rgba(23,23,31,.94);
+    border: 2px solid rgba(245,166,35,.28);
+    text-align: center;
+    min-width: 0;
+  }
+  .podium-card.r1 { border-color: var(--amber); box-shadow: 0 0 0 1px rgba(245,166,35,.25), 0 18px 40px rgba(245,166,35,.08); padding-top: 28px; padding-bottom: 28px; }
+  .podium-card.r2 { border-color: rgba(240,240,245,.35); }
+  .podium-card.r3 { border-color: var(--bronze); }
+  @media (min-width: 721px) {
+    .podium-card.r1 { order: 2; }
+    .podium-card.r2 { order: 1; }
+    .podium-card.r3 { order: 3; }
+  }
+  .medal {
+    font-family: var(--pixel);
+    font-size: 10px;
+    letter-spacing: .08em;
+    margin-bottom: 10px;
+  }
+  .podium-card.r1 .medal { color: var(--amber); font-size: 11px; }
+  .podium-card.r2 .medal { color: rgba(240,240,245,.8); }
+  .podium-card.r3 .medal { color: var(--bronze); }
+  .podium-name {
+    font-size: 18px; font-weight: 700; color: var(--cream);
+    overflow-wrap: anywhere; line-height: 1.3; margin-bottom: 10px;
+  }
+  .podium-card.r1 .podium-name { font-size: 22px; }
+  .podium-xp { font-family: var(--pixel); font-size: 9px; color: var(--amber); line-height: 1.6; }
+  .podium-meta { margin-top: 10px; font-size: 13px; color: rgba(240,240,245,.65); }
+
+  .board {
+    border: 2px solid rgba(245,166,35,.32);
+    background: rgba(23,23,31,.92);
+    overflow: hidden;
+  }
+  .board-head, .board-row {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1.6fr) 1fr 88px 72px;
+    gap: 8px;
+    align-items: center;
+    padding: 14px 18px;
+  }
+  .board-head {
+    background: rgba(10,10,15,.55);
+    border-bottom: 1px solid rgba(245,166,35,.14);
+  }
+  .board-head span {
+    font-size: 10px; font-weight: 700; letter-spacing: .16em;
+    color: rgba(245,166,35,.85); text-transform: uppercase;
+  }
+  .board-row { border-bottom: 1px solid rgba(245,166,35,.12); }
+  .board-row:last-child { border-bottom: none; }
+  .rank { font-weight: 700; color: var(--amber); font-size: 15px; }
+  .player { font-weight: 600; color: var(--cream); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .xp { font-family: var(--pixel); font-size: 10px; color: var(--amber); line-height: 1.4; }
+  .streak { font-size: 14px; color: rgba(240,240,245,.75); }
+  .level {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 42px; padding: 4px 8px; border-radius: 999px;
+    font-size: 12px; font-weight: 700; color: #0A0A0F;
+  }
+  .level.l7, .level.l6 { background: var(--green); }
+  .level.l5 { background: var(--amber); }
+  .level.l4 { background: var(--blue); color: #fff; }
+  .level.l3 { background: rgba(240,240,245,.25); color: var(--cream); }
+
+  footer {
+    position: relative; z-index: 1;
+    padding: 28px 40px;
+    border-top: 2px solid rgba(245,166,35,.12);
+    display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+    font-size: 13px; color: rgba(240,240,245,.4);
+  }
+  footer a { color: rgba(240,240,245,.55); text-decoration: none; margin-left: 18px; }
+  footer a:hover { color: var(--amber); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lb-star { animation: none !important; opacity: .45; }
+    .live-dot { animation: none; }
+  }
+  @media (max-width: 720px) {
+    .podium-card { max-width: none; }
+  }
+  @media (max-width: 640px) {
+    nav, footer { padding: 14px 20px; }
+    main { padding-top: 44px; }
+    footer { flex-direction: column; }
+    footer a { margin: 0 16px 0 0; }
+    .board-head, .board-row {
+      grid-template-columns: 36px minmax(0, 1.4fr) .9fr 56px 48px;
+      padding: 12px 12px; gap: 4px;
+    }
+    .board-head span { letter-spacing: .06em; font-size: 9px; }
+    .player { font-size: 13px; }
+    .xp { font-size: 8px; }
+    .streak { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="lb-stars" id="lbStars" aria-hidden="true"></div>
+<nav>
+  <a class="logo" href="index.html">POCKET<br><span>PM COACH</span></a>
+  <a class="back" href="index.html">← Back to home</a>
+</nav>
+<main>
+  <span class="eyebrow">PUBLIC RANKS</span>
+  <h1>Pocket PM Leaderboard</h1>
+  <p class="intro">These are real Product Managers using Daily Drills to stay sharp. Sign up to see how others answer questions and climb the leaderboard yourself.</p>
+  <div class="meta-row">
+    <span class="live"><span class="live-dot" aria-hidden="true"></span> Live all-time ranks</span>
+    <span id="updatedAt" class="note">Loading the board…</span>
+  </div>
+
+  <div id="lbStatus" class="status">Loading the board…</div>
+  <div id="lbPodium" class="podium" hidden></div>
+  <div id="lbBoard" class="board" hidden></div>
+
+  <div class="cta-row">
+    <a class="btn-pixel" href="https://apps.apple.com/us/app/pocket-pm-coach/id6767074466" target="_blank" rel="noopener noreferrer">Sign up</a>
+    <a class="app-store-badge"
+       href="https://apps.apple.com/us/app/pocket-pm-coach/id6767074466"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Download Pocket PM Coach on the App Store">
+      <img src="app-store-badge.svg" alt="Download on the App Store" width="156" height="52">
+    </a>
+  </div>
+  <p class="note">Hide yourself anytime in Settings. We show gamertag, XP, streak, and level — never your email or answers.</p>
+</main>
+<footer>
+  <span>© 2026 Pocket PM Coach</span>
+  <span>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="support.html">Support</a>
+  </span>
+</footer>
+<script>
+(function() {
+  var API = 'https://product-power-up.web.app/publicAllTimeLeaderboard';
+  var statusEl = document.getElementById('lbStatus');
+  var podiumEl = document.getElementById('lbPodium');
+  var boardEl = document.getElementById('lbBoard');
+  var updatedEl = document.getElementById('updatedAt');
+  var starsEl = document.getElementById('lbStars');
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function levelClass(level) {
+    return 'level ' + String(level || 'L3').toLowerCase();
+  }
+
+  function formatXp(xp) {
+    var n = Number(xp) || 0;
+    return n.toLocaleString() + ' XP';
+  }
+
+  function streakLabel(streak) {
+    return (streak > 0) ? ('🔥 ' + streak) : '—';
+  }
+
+  function formatUpdated(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return 'Live ranks refresh every minute.';
+    return 'Updated ' + d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+  }
+
+  function medalLabel(rank) {
+    if (rank === 1) return '1ST';
+    if (rank === 2) return '2ND';
+    if (rank === 3) return '3RD';
+    return '#' + rank;
+  }
+
+  function podiumCard(entry) {
+    return (
+      '<article class="podium-card r' + entry.rank + '">' +
+        '<div class="medal">' + medalLabel(entry.rank) + '</div>' +
+        '<div class="podium-name">' + escapeHtml(entry.displayName) + '</div>' +
+        '<div class="podium-xp">' + formatXp(entry.xp) + '</div>' +
+        '<div class="podium-meta">' + streakLabel(entry.streak) +
+          ' · <span class="' + levelClass(entry.level) + '">' + escapeHtml(entry.level || 'L3') + '</span></div>' +
+      '</article>'
+    );
+  }
+
+  function boardRow(entry) {
+    return (
+      '<div class="board-row" role="row">' +
+        '<span class="rank">' + entry.rank + '</span>' +
+        '<span class="player">' + escapeHtml(entry.displayName) + '</span>' +
+        '<span class="xp">' + formatXp(entry.xp) + '</span>' +
+        '<span class="streak">' + streakLabel(entry.streak) + '</span>' +
+        '<span><span class="' + levelClass(entry.level) + '">' + escapeHtml(entry.level || 'L3') + '</span></span>' +
+      '</div>'
+    );
+  }
+
+  function showStatus(html) {
+    statusEl.hidden = false;
+    statusEl.innerHTML = html;
+    podiumEl.hidden = true;
+    boardEl.hidden = true;
+    podiumEl.innerHTML = '';
+    boardEl.innerHTML = '';
+  }
+
+  function render(data) {
+    var entries = (data && data.entries ? data.entries : []).slice(0, 100);
+    updatedEl.textContent = formatUpdated(data && data.updatedAt);
+
+    if (!entries.length) {
+      showStatus('Be the first to climb the all-time ranks.<br>Complete drills in the app to earn XP.');
+      return;
+    }
+
+    statusEl.hidden = true;
+    statusEl.textContent = '';
+
+    var top = entries.slice(0, 3);
+    podiumEl.innerHTML = top.map(podiumCard).join('');
+    podiumEl.hidden = false;
+
+    var rest = entries.slice(3);
+    if (rest.length) {
+      boardEl.innerHTML =
+        '<div class="board-head" role="row">' +
+          '<span>Rank</span><span>Player</span><span>XP</span><span>Streak</span><span>Level</span>' +
+        '</div>' +
+        rest.map(boardRow).join('');
+      boardEl.hidden = false;
+    } else {
+      boardEl.hidden = true;
+      boardEl.innerHTML = '';
+    }
+  }
+
+  function renderError() {
+    updatedEl.textContent = 'Couldn’t refresh just now.';
+    showStatus('Leaderboard is warming up. Check back soon — or get the app and start earning XP.');
+  }
+
+  function loadBoard() {
+    fetch(API, { method: 'GET' })
+      .then(function(res) {
+        if (!res.ok) throw new Error('bad status');
+        return res.json();
+      })
+      .then(render)
+      .catch(renderError);
+  }
+
+  loadBoard();
+  setInterval(loadBoard, 60000);
+
+  if (starsEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    for (var i = 0; i < 28; i++) {
+      var star = document.createElement('span');
+      var size = (i % 7 === 0) ? (3 + Math.random() * 4) : (1 + Math.random() * 2.2);
+      var isAsteroid = i % 9 === 0;
+      star.className = 'lb-star' + (isAsteroid ? ' asteroid' : (i % 4 === 0 ? ' amber' : ''));
+      star.style.width = size + 'px';
+      star.style.height = (isAsteroid ? size * 0.55 : size) + 'px';
+      star.style.left = (Math.random() * 100) + '%';
+      star.style.top = (Math.random() * 100) + '%';
+      star.style.setProperty('--dx', (-40 + Math.random() * 80) + 'vw');
+      star.style.setProperty('--dy', (20 + Math.random() * 60) + 'vh');
+      star.style.animationDuration = (18 + Math.random() * 28) + 's';
+      star.style.animationDelay = (-Math.random() * 20) + 's';
+      starsEl.appendChild(star);
+    }
+  } else if (starsEl) {
+    for (var j = 0; j < 16; j++) {
+      var s = document.createElement('span');
+      s.className = 'lb-star' + (j % 3 === 0 ? ' amber' : '');
+      s.style.width = (1 + Math.random() * 2) + 'px';
+      s.style.height = s.style.width;
+      s.style.left = (Math.random() * 100) + '%';
+      s.style.top = (Math.random() * 100) + '%';
+      starsEl.appendChild(s);
+    }
+  }
+})();
+</script>
+</body>
+</html>
