@@ -55,5 +55,5 @@ Marketing landing page for Pocket PM Coach (Product Power-Up), a gamified iOS PM
 
 ## Session Handoff
 <!-- Update this section at the end of each session -->
-Last completed: Pushed legal and leaderboard copy for default-on daily/public boards, independent opt-outs, private-by-default answers/AI feedback, and 18+ eligibility
-Next up: Complete App Store age-rating/privacy checklist against these live URLs; rotate Beehiiv API key
+Last completed: Synced legal and marketing copy to in-app Settings labels (Daily Drill / All-Time Leaderboard)
+Next up: After App Store 1.2.3 (12) is available, rotate Beehiiv API key
