@@ -55,5 +55,5 @@ Marketing landing page for Pocket PM Coach (Product Power-Up), a gamified iOS PM
 
 ## Session Handoff
 <!-- Update this section at the end of each session -->
-Last completed: Synced legal and marketing copy to in-app Settings labels (Daily Drill / All-Time Leaderboard). App 1.2.3 (12) is in App Store review.
-Next up: After 1.2.3 (12) is available on the store (and after app-side privacy migration + rules deploy), rotate Beehiiv API key
+Last completed: Synced legal and marketing copy to in-app Settings labels (Daily Drill / All-Time Leaderboard). App 1.2.3 (12) is live; privacy migration + Firestore rules deployed.
+Next up: After two-account privacy verification and migration endpoint removal, rotate Beehiiv API key
