@@ -27,7 +27,7 @@ Marketing landing page for Pocket PM Coach (Product Power-Up), a gamified iOS PM
 
 ## Beehiiv Integration
 - Beehiiv account: andrewjwagner.dev email
-- Newsletter publication ID: `pub_3ef727c3-7d46-48a1-a7b2-945e6c9146ac`
+- Newsletter publication ID: `pub_b8550302-c809-4cae-b985-37fc508d6c7a` (Pocket PM Coach waitlist; not Productive PM `pub_3ef727c3-…`)
 - Site POSTs `{ email }` to `https://product-power-up.web.app/subscribeNewsletter`
 - API key stored as Firebase secret `BEEHIIV_API_KEY` (never in this repo)
 
@@ -55,5 +55,5 @@ Marketing landing page for Pocket PM Coach (Product Power-Up), a gamified iOS PM
 
 ## Session Handoff
 <!-- Update this section at the end of each session -->
-Last completed: Synced legal and marketing copy to in-app Settings labels (Daily Drill / All-Time Leaderboard). App 1.2.3 (12) is live; privacy migration + Firestore rules deployed; migration endpoint removed.
-Next up: Rotate Beehiiv API key (Firebase secret `BEEHIIV_API_KEY`)
+Last completed: Synced legal and marketing copy to in-app Settings labels (Daily Drill / All-Time Leaderboard). App 1.2.3 (12) is live; privacy migration + Firestore rules deployed; migration endpoint removed. Newsletter/waitlist form stays; Beehiiv key rotated and `subscribeNewsletter` redeployed.
+Next up: Revoke old Pocket PM Coach Waitlist Beehiiv key after one live signup test
