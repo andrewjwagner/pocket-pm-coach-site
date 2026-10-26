@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG Image Source</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A0A0F;
+    --navy-light: #17171F;
+    --amber: #F5A623;
+    --amber-shadow: #b87800;
+    --red: #E52222;
+    --green: #22C55E;
+    --green-shadow: #16a34a;
+    --blue: #3B6BC8;
+    --yellow: #FFE033;
+    --cream: #F0F0F5;
+    --pixel: 'Press Start 2P', monospace;
+    --body: 'DM Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1200px;
+    height: 630px;
+    background: var(--navy);
+    overflow: hidden;
+    font-family: var(--body);
+  }
+  .canvas {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    background:
+      radial-gradient(circle at 18% 15%, rgba(59,107,200,0.22) 0%, rgba(59,107,200,0) 42%),
+      radial-gradient(circle at 86% 88%, rgba(229,34,34,0.16) 0%, rgba(229,34,34,0) 46%),
+      var(--navy);
+  }
+
+  /* faint pixel-grid floor, like brick blocks, bottom third only */
+  .floor {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 150px;
+    background-image:
+      linear-gradient(rgba(240,240,245,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,240,245,0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            mask-image: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  }
+
+  /* scattered pixel stars */
+  .dot { position: absolute; width: 4px; height: 4px; background: var(--cream); opacity: .5; }
+
+  .content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 72px;
+  }
+
+  .badge-col { flex: 0 0 auto; margin-right: 56px; }
+  .icon-wrap {
+    width: 184px;
+    height: 184px;
+    background: var(--navy-light);
+    border: 4px solid var(--amber);
+    box-shadow: 10px 10px 0 var(--amber-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .icon-wrap img { width: 128px; height: 128px; image-rendering: -webkit-optimize-contrast; }
+
+  .level-chip {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--red);
+    color: var(--cream);
+    font-family: var(--pixel);
+    font-size: 11px;
+    padding: 8px 12px;
+    box-shadow: 4px 4px 0 #8f1414;
+    white-space: nowrap;
+  }
+
+  .text-col { flex: 1 1 auto; min-width: 0; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--pixel);
+    font-size: 12px;
+    color: var(--yellow);
+    letter-spacing: .08em;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 10px; height: 10px;
+    background: var(--yellow);
+  }
+
+  h1 {
+    font-family: var(--pixel);
+    font-size: 40px;
+    line-height: 1.5;
+    color: var(--cream);
+    text-shadow: 4px 4px 0 var(--navy-light), 4px 4px 0 rgba(0,0,0,0.4);
+    margin-bottom: 24px;
+    letter-spacing: .01em;
+  }
+  h1 .hi { color: var(--amber); }
+
+  .tagline {
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 1.5;
+    color: var(--cream);
+    opacity: .88;
+    max-width: 620px;
+    margin-bottom: 30px;
+  }
+
+  .chips { display: flex; gap: 14px; }
+  .chip {
+    font-family: var(--pixel);
+    font-size: 11px;
+    color: var(--navy);
+    background: var(--green);
+    padding: 11px 16px;
+    box-shadow: 4px 4px 0 var(--green-shadow);
+  }
+  .chip.blue { background: var(--blue); color: var(--cream); box-shadow: 4px 4px 0 #244a8f; }
+  .chip.amber { background: var(--amber); color: var(--navy); box-shadow: 4px 4px 0 var(--amber-shadow); }
+
+  .wordmark {
+    position: absolute;
+    bottom: 28px;
+    right: 40px;
+    font-family: var(--pixel);
+    font-size: 13px;
+    color: var(--cream);
+    opacity: .55;
+    letter-spacing: .05em;
+  }
+
+  .qblock {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    background: var(--yellow);
+    border: 3px solid #0A0A0F;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--pixel);
+    font-size: 18px;
+    color: var(--navy);
+  }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="floor"></div>
+
+    <div class="content">
+      <div class="badge-col">
+        <div class="icon-wrap">
+          <img src="../app-icon-noalpha.png" alt="">
+          <div class="level-chip">LVL UP</div>
+        </div>
+      </div>
+
+      <div class="text-col">
+        <div class="eyebrow">DAILY DRILL &middot; AI FEEDBACK</div>
+        <h1>Pocket PM <span class="hi">Coach</span></h1>
+        <p class="tagline">Step-by-step mock PM interview drills with AI feedback at every stage &mdash; calibrated to your target level, APM to Staff PM.</p>
+        <div class="chips">
+          <div class="chip">PRODUCT DESIGN</div>
+          <div class="chip blue">ANALYTICS</div>
+          <div class="chip amber">BEHAVIORAL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wordmark">pocketpmcoach.app</div>
+
+    <div class="qblock" style="top:72px; right:108px; transform:rotate(-6deg);">?</div>
+    <div class="qblock" style="top:150px; right:64px; width:30px; height:30px; font-size:13px; transform:rotate(8deg); opacity:.85;">?</div>
+
+    <div class="dot" style="top:58px; left:420px;"></div>
+    <div class="dot" style="top:520px; left:1020px;"></div>
+    <div class="dot" style="top:100px; left:980px; opacity:.3;"></div>
+    <div class="dot" style="top:470px; left:140px; opacity:.35;"></div>
+    <div class="dot" style="top:40px; left:1080px; opacity:.4;"></div>
+  </div>
+</body>
+</html>
