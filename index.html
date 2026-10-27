@@ -18,6 +18,26 @@
 <meta name="twitter:title" content="Pocket PM Coach: Level Up Your PM Interview Game">
 <meta name="twitter:description" content="Step-by-step mock PM interview drills with AI feedback at every stage. Product Design, Analytics, and Behavioral practice calibrated to your target level, APM to Staff PM.">
 <meta name="twitter:image" content="https://pocketpmcoach.app/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Pocket PM Coach",
+  "url": "https://pocketpmcoach.app/",
+  "description": "Step-by-step mock PM interview drills with AI feedback at every stage. Product Design, Analytics, and Behavioral practice calibrated to your target level, APM to Staff PM.",
+  "applicationCategory": "ProductivityApplication",
+  "operatingSystem": "iOS",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "image": "https://pocketpmcoach.app/og-image.png",
+  "sameAs": [
+    "https://apps.apple.com/us/app/pocket-pm-coach/id6767074466"
+  ]
+}
+</script>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="favicon-192.png">
@@ -430,6 +450,20 @@
   .sec-label { font-family: var(--body); font-size: 11px; font-weight: 700; color: var(--amber); letter-spacing: .2em; display: block; margin-bottom: 16px; }
   .sec-title { font-family: var(--body); font-size: clamp(28px, 3.5vw, 48px); font-weight: 800; line-height: 1.2; color: var(--cream); margin-bottom: 56px; max-width: 640px; }
 
+  .faq-sec { max-width: 760px; }
+  .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .faq-item { background: var(--navy-light); border: 2px solid #2a2a36; }
+  .faq-item[open] { border-color: var(--amber); }
+  .faq-q {
+    list-style: none; cursor: pointer; padding: 20px 24px;
+    font-family: var(--body); font-weight: 700; font-size: 16px; color: var(--cream);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .faq-q::-webkit-details-marker { display: none; }
+  .faq-q::after { content: '+'; font-family: var(--pixel); font-size: 16px; color: var(--amber); flex: none; }
+  .faq-item[open] .faq-q::after { content: '–'; }
+  .faq-a { padding: 0 24px 22px; font-size: 15px; line-height: 1.6; color: var(--cream); opacity: .85; }
+
   /* ═══ DIFFERENTIATOR: VS BLOCK ═══ */
   .vs-band {
     position: relative; z-index: 1;
@@ -825,7 +859,8 @@
   <a class="app-store-badge"
      href="https://apps.apple.com/us/app/pocket-pm-coach/id6767074466"
      target="_blank" rel="noopener noreferrer"
-     aria-label="Download Pocket PM Coach on the App Store">
+     aria-label="Download Pocket PM Coach on the App Store"
+     data-cta="hero">
     <img src="app-store-badge.svg" alt="Download on the App Store" width="156" height="52">
   </a>
 
@@ -1133,6 +1168,94 @@
   </div>
 </div>
 
+<!-- FAQ -->
+<section class="sec faq-sec reveal" id="faq" aria-labelledby="faq-title">
+  <span class="sec-label">COMMON QUESTIONS</span>
+  <h2 class="sec-title" id="faq-title">Before you download.</h2>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary class="faq-q">Is Pocket PM Coach free?</summary>
+      <p class="faq-a">Yes, Pocket PM Coach is free to download on the App Store. A fresh Daily Drill question drops every day, and you earn XP and build a streak as you complete them.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">What PM interview types does it cover?</summary>
+      <p class="faq-a">Three modules: Product Design (a 6-step sequential drill covering clarify &amp; assume, market trends, segmentation, customer journey, solutions &amp; prioritization, and metrics), Product Analytics, and Behavioral. Focused sub-drills like Segmentation are also available on their own.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">What experience level is this for?</summary>
+      <p class="faq-a">You set a target level at onboarding, from APM/L3 up through Staff/Principal PM (L7). Every grading call is calibrated to that level, so the feedback bar matches what a hiring panel at your target would actually expect, not a generic rubric.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">How is the AI feedback different from just using ChatGPT?</summary>
+      <p class="faq-a">Pocket PM Coach grades each step of a structured drill as you go, not just the final answer, so you know exactly what was missing and what a stronger response would have included before you move to the next step.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Is my leaderboard activity private?</summary>
+      <p class="faq-a">The public leaderboard only ever shows your leaderboard name, rank, XP, streak, and level. Your email and your actual drill answers are never shown publicly, and you can hide yourself from the leaderboard entirely in Settings.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">What platforms is it available on?</summary>
+      <p class="faq-a">Pocket PM Coach is currently available on iOS, built natively for iPhone.</p>
+    </details>
+  </div>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Pocket PM Coach free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Pocket PM Coach is free to download on the App Store. A fresh Daily Drill question drops every day, and you earn XP and build a streak as you complete them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What PM interview types does it cover?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three modules: Product Design (a 6-step sequential drill covering clarify & assume, market trends, segmentation, customer journey, solutions & prioritization, and metrics), Product Analytics, and Behavioral. Focused sub-drills like Segmentation are also available on their own."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What experience level is this for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You set a target level at onboarding, from APM/L3 up through Staff/Principal PM (L7). Every grading call is calibrated to that level, so the feedback bar matches what a hiring panel at your target would actually expect, not a generic rubric."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the AI feedback different from just using ChatGPT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pocket PM Coach grades each step of a structured drill as you go, not just the final answer, so you know exactly what was missing and what a stronger response would have included before you move to the next step."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my leaderboard activity private?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The public leaderboard only ever shows your leaderboard name, rank, XP, streak, and level. Your email and your actual drill answers are never shown publicly, and you can hide yourself from the leaderboard entirely in Settings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What platforms is it available on?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pocket PM Coach is currently available on iOS, built natively for iPhone."
+      }
+    }
+  ]
+}
+</script>
+
 <!-- BOTTOM CTA -->
 <section class="cta-bottom reveal" id="join">
   <span class="cta-tag">[ AVAILABLE ON THE APP STORE ]</span>
@@ -1141,6 +1264,7 @@
      href="https://apps.apple.com/us/app/pocket-pm-coach/id6767074466"
      target="_blank" rel="noopener noreferrer"
      aria-label="Download Pocket PM Coach on the App Store"
+     data-cta="final"
      style="opacity:1;animation:none;">
     <img src="app-store-badge.svg" alt="Download on the App Store" width="156" height="52">
   </a>
